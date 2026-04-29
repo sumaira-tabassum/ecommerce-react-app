@@ -1,0 +1,338 @@
+.hero{
+   width: 100%;
+    min-height: 600px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+}
+.heroText{
+    padding: 90px 60px;
+    color: #6A0610;
+    font-size: xx-large;
+    font-weight: 900;
+    width: 100%;
+}
+.heroText p{
+    margin: 0;
+}
+.heroButton{
+    padding: 10px 15px;
+    background-color: #6A0610;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: medium;
+    margin-top: 20px;
+    cursor: pointer;
+}
+.heroButton:hover{
+    text-decoration: underline;
+}
+.heroTitle{
+    color: white;
+    position: absolute;
+    font-size: 180px;
+    bottom: 0;
+    left: 60px;
+    margin: 0;
+    line-height: 0.9;
+}
+.productCards{
+    display: grid;
+    grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    padding: 40px;
+}
+.productCards > :first-child {
+  grid-row: span 2;
+}
+.productCards > :first-child img {
+  height: 700px;
+} 
+.testimonial{
+    background-color: #6A0610;
+    min-height: 280px;
+    color: #6A0610;
+    text-align: center;
+    font-size:40px;
+    padding: 50px 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.testimonialQuote{
+    -webkit-text-stroke: 1px #f4bfbf;
+    margin: 0;
+}
+.testimonialAuthor{
+    margin-top: 40px;
+    color: #f4bfbf;
+    font-size: large;
+}
+/* .productsHeader{
+    display: flex;
+    justify-content: space-between;
+    padding: 40px 40px 0 40px;
+}
+.shopBtn{
+    border: 1px solid #6A0610;
+    color: #6A0610;
+    background-color: white;
+    padding:5px 10px;
+    border-radius: 5px;
+}
+.productsTitle{
+    color: #6A0610;
+    font-weight: 400;
+} */
+.productsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center; /* vertical alignment */
+  gap: 20px;
+  padding: 40px 40px 0 40px;
+}
+
+.productsTitle {
+  color: #6A0610;
+  font-weight: 600;
+  font-size: 26px;
+  letter-spacing: 0.5px;
+  position: relative;
+  margin: 0;
+}
+.productsTitle::after {
+  content: "";
+  width: 100%;
+  height: 2px;
+  background-color: #6A0610;
+  position: absolute;
+  left: 0;
+  bottom: -6px;
+  opacity: 0.6;
+}
+
+.shopBtn {
+  border: 1px solid #6A0610;
+  color: #6A0610;
+  background-color: white;
+  padding: 8px 16px;
+  border-radius: 25px; /* pill shape */
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.shopBtn::after {
+  content: "→";
+  margin-left: 8px;
+  transition: transform 0.3s ease;
+}
+
+.shopBtn:hover {
+  background-color: #6A0610;
+  color: white;
+}
+
+.shopBtn:hover::after {
+  transform: translateX(4px);
+}
+
+.yourGlow{
+  display: flex;
+  gap: 5px;
+}
+
+@media screen and (max-width: 1200px) {
+  .hero{
+    min-height: 520px;
+  }
+
+  .heroText{
+    padding: 70px 40px;
+    font-size: 34px;
+  }
+
+  .heroTitle{
+    font-size: 130px;
+    left: 40px;
+  }
+
+  .productCards{
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 25px;
+    padding: 30px 40px 40px 40px;
+  }
+
+  .productCards > :first-child img {
+    height: 560px;
+  }
+
+  .testimonial{
+    font-size: 32px;
+  }
+}
+
+@media screen and (max-width: 992px) {
+  .hero{
+    min-height: 460px;
+  }
+
+  .heroText{
+    padding: 60px 30px;
+    font-size: 28px;
+  }
+
+  .heroTitle{
+    font-size: 95px;
+    left: 30px;
+  }
+
+  .productsHeader {
+    padding: 30px 30px 0 30px;
+  }
+
+  .productCards{
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto;
+    gap: 25px;
+    padding: 30px;
+  }
+
+  .productCards > :first-child {
+    grid-row: auto;
+    grid-column: 1 / -1;
+  }
+
+  .productCards > :first-child img {
+    height: 420px;
+  }
+
+  .testimonial{
+    min-height: 240px;
+    font-size: 28px;
+  }
+
+  .testimonialAuthor{
+    margin-top: 25px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .hero{
+    min-height: 420px;
+    background-position: center;
+  }
+
+  .heroText{
+    padding: 50px 20px;
+    font-size: 22px;
+  }
+
+  .heroButton{
+    font-size: 14px;
+    padding: 10px 14px;
+  }
+
+  .heroTitle{
+    font-size: 68px;
+    left: 20px;
+    bottom: 10px;
+  }
+
+  .productsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 25px 20px 0 20px;
+  }
+
+  .productsTitle{
+    font-size: 22px;
+  }
+
+  .productCards{
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 25px 20px 30px 20px;
+  }
+
+  .productCards > :first-child {
+    grid-column: auto;
+  }
+
+  .productCards > :first-child img {
+    height: auto;
+    max-height: 420px;
+  }
+
+  .testimonial{
+    min-height: 220px;
+    font-size: 22px;
+    padding: 40px 18px;
+  }
+
+  .testimonialAuthor{
+    font-size: 16px;
+    margin-top: 20px;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .hero{
+    min-height: 360px;
+  }
+
+  .heroText{
+    padding: 40px 15px;
+    font-size: 18px;
+  }
+
+  .heroButton{
+    margin-top: 16px;
+    padding: 9px 13px;
+    font-size: 13px;
+  }
+
+  .heroTitle{
+    font-size: 46px;
+    left: 15px;
+    bottom: 12px;
+  }
+
+  .productsHeader {
+    padding: 20px 15px 0 15px;
+    gap: 15px;
+  }
+
+  .productsTitle{
+    font-size: 20px;
+  }
+
+  .shopBtn{
+    padding: 7px 14px;
+    font-size: 13px;
+  }
+
+  .productCards{
+    padding: 20px 15px 25px 15px;
+    gap: 18px;
+  }
+
+  .testimonial{
+    min-height: 190px;
+    font-size: 18px;
+    padding: 35px 15px;
+  }
+
+  .testimonialAuthor{
+    font-size: 14px;
+    margin-top: 16px;
+  }
+}

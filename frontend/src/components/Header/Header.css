@@ -1,0 +1,24 @@
+.header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 40px;
+    background-color: #311D1F;
+    padding: 8px 12px;
+    text-align: center;
+}
+.header p{
+    color: white;
+    margin: 0;
+}
+
+@media screen and (max-width: 480px){
+    .header{
+        padding: 10px 12px;
+    }
+
+    .header p{
+        font-size: 13px;
+        line-height: 1.4;
+    }
+}

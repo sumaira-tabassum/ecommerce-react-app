@@ -1,0 +1,41 @@
+import mongoose from "mongoose";
+
+const orderSchema = new mongoose.Schema({
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: false
+    },
+    guestInfo: {
+        name: { type: String },
+        email: { type: String },
+        address: { type: String },
+        phone: {type: String}
+    },
+    orderItems: [
+        {
+            product: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "Product",
+                required: true
+            },
+            quantity: {
+                type: Number,
+                required: true
+            }
+        }
+    ],
+    totalPrice: {
+        type: Number,
+        required: true
+    },
+    status: {
+        type: String,
+        required: true,
+        default: "pending"
+    }
+})
+
+const Order = mongoose.model("Order", orderSchema);
+
+export default Order;

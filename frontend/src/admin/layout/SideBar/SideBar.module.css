@@ -1,0 +1,44 @@
+.drawer {
+  width: 240px;
+  background: #6A0610 !important;
+  color: #fdf6f4;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-sizing: border-box;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  padding: 24px 16px;
+  gap: 8px;
+}
+
+.item {
+  color: #fdf6f4 !important;
+  margin: 0 !important;
+  padding: 12px 14px !important;
+  border-radius: 8px !important;
+  transition: background-color 0.22s ease, opacity 0.22s ease;
+  opacity: 0.82;
+}
+
+.item:hover {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  opacity: 1;
+}
+
+.active {
+  background-color: rgba(255, 255, 255, 0.14) !important;
+  color: #ffffff !important;
+  opacity: 1;
+}
+
+.item :global(.MuiListItemText-primary) {
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.1px;
+}
+
+.active :global(.MuiListItemText-primary) {
+  font-weight: 600;
+}
