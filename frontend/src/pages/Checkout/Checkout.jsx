@@ -1,37 +1,99 @@
 import { useOutletContext } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Checkout.css";
 import { useLocation } from "react-router-dom";
+import Swal from "sweetalert2";
 
 const Checkout = () => {
     const { cart, setCart } = useOutletContext();
+    const [placingOrder, setPlacingOrder] = useState(false);
     const shipping = 250;
-    const location = useLocation();
+    // const location = useLocation();
 
-    const [form, setForm] = useState({
-        name: "",
-        phone: "",
-        country: "",
-        state: "",
-        city: "",
-        zipcode: "",
-        address: "",
-        note: ""
+    const checkoutAlert = Swal.mixin({
+        customClass: {
+            popup: "checkout-swal-popup",
+            icon: "checkout-swal-icon",
+            title: "checkout-swal-title",
+            htmlContainer: "checkout-swal-text",
+            confirmButton: "checkout-swal-confirm"
+        },
+        buttonsStyling: false,
+        background: "#fffdf8",
+        color: "#6A0610",
+        confirmButtonText: "Continue Shopping"
     });
 
-    const [sameAsBilling, setSameAsBilling] = useState(true);
 
-    const [shippingForm, setShippingForm] = useState({
-        name: "",
-        phone: "",
-        country: "",
-        state: "",
-        city: "",
-        zipcode: "",
-        address: "",
-        note: ""
+    const [sameAsBilling, setSameAsBilling] = useState(() => {
+        const savedSameAsBilling = localStorage.getItem("checkoutSameAsBilling");
+        return savedSameAsBilling ? JSON.parse(savedSameAsBilling) : true;
     });
+
+    const [form, setForm] = useState(() => {
+        const savedForm = localStorage.getItem("checkoutBillingForm");
+        return savedForm ? JSON.parse(savedForm) : {
+            name: "",
+            email: "",
+            phone: "",
+            country: "",
+            state: "",
+            city: "",
+            zipcode: "",
+            address: "",
+            note: ""
+        };
+    });
+
+    const [shippingForm, setShippingForm] = useState(() => {
+        const savedShippingForm = localStorage.getItem("checkoutShippingForm");
+        return savedShippingForm ? JSON.parse(savedShippingForm) : {
+            name: "",
+            email: "",
+            phone: "",
+            country: "",
+            state: "",
+            city: "",
+            zipcode: "",
+            address: "",
+            note: ""
+        };
+    });
+
+    useEffect(() => {
+        localStorage.setItem("checkoutBillingForm", JSON.stringify(form));
+    }, [form]);
+
+    useEffect(() => {
+        localStorage.setItem("checkoutShippingForm", JSON.stringify(shippingForm));
+    }, [shippingForm]);
+
+    useEffect(() => {
+        localStorage.setItem("checkoutSameAsBilling", JSON.stringify(sameAsBilling));
+    }, [sameAsBilling]);
+
+    const resetCheckoutState = () => {
+        const emptyForm = {
+            name: "",
+            email: "",
+            phone: "",
+            country: "",
+            state: "",
+            city: "",
+            zipcode: "",
+            address: "",
+            note: ""
+        };
+
+        setForm(emptyForm);
+        setShippingForm(emptyForm);
+        setSameAsBilling(true);
+
+        localStorage.removeItem("checkoutBillingForm");
+        localStorage.removeItem("checkoutShippingForm");
+        localStorage.removeItem("checkoutSameAsBilling");
+    };
 
     const handleChange = (e) => {
         setForm({
@@ -47,12 +109,14 @@ const Checkout = () => {
         });
     };
 
+    
     const handlePlaceOrder = async () => {
-        if (!form.name || !form.phone || !form.country || !form.state || !form.city || !form.address) {
+        if (placingOrder) return;
+        if (!form.name || !form.email || !form.phone || !form.country || !form.state || !form.city || !form.address) {
             alert("Please fill all fields");
             return;
         }
-
+        setPlacingOrder(true);
         try {
             const orderData = {
                 user: null,
@@ -63,13 +127,45 @@ const Checkout = () => {
                 }))
             };
 
-            await axios.post("http://localhost:3000/api/orders", orderData);
+            const response = await axios.post("http://localhost:3000/api/orders", orderData);
 
             setCart([]);
-            alert("Order placed successfully!");
+            resetCheckoutState();
+            checkoutAlert.fire({
+                icon: "success",
+                title: "Order Confirmed!",
+                html: response.data.emailSent
+                    ? `
+      <div>
+        <p>Your order <strong>${response.data.newOrder.orderNumber}</strong> has been placed successfully.</p>
+        <p>A confirmation email has been sent to <strong>${form.email}</strong>.</p>
+      </div>
+    `
+                    : `
+      <div>
+        <p>Your order <strong>${response.data.newOrder.orderNumber}</strong> has been placed successfully.</p>
+        <p>We could not send the confirmation email right now.</p>
+      </div>
+    `
+            });
+
         } catch (error) {
             console.log(error);
-            alert("Order failed");
+            checkoutAlert.fire({
+                icon: "error",
+                title: "Order Not Placed",
+                html: `
+    <div>
+      <p>${error.response?.data?.message || "Something went wrong while placing your order."}</p>
+      <p>Please review your details and try again.</p>
+    </div>
+  `,
+                confirmButtonText: "Try Again"
+            });
+
+        }
+        finally {
+            setPlacingOrder(false);
         }
     };
 
@@ -100,6 +196,20 @@ const Checkout = () => {
                             />
                         </div>
 
+                        <div className="email">
+                            <label>Email</label>
+                            <input
+                                type="text"
+                                name="email"
+                                placeholder="Email"
+                                value={form.email}
+                                onChange={handleChange}
+                                className="form-input"
+                            />
+                        </div>
+                    </div>
+
+                    <div className="wrapper-2">
                         <div className="phone-number">
                             <label>Phone Number</label>
                             <input
@@ -112,9 +222,6 @@ const Checkout = () => {
                             />
                         </div>
 
-                    </div>
-
-                    <div className="wrapper-2">
                         <div className="country">
                             <label>Country</label>
                             <input
@@ -126,7 +233,9 @@ const Checkout = () => {
                                 className="form-input"
                             />
                         </div>
+                    </div>
 
+                    <div className="wrapper-3">
                         <div className="state">
                             <label>State</label>
                             <input
@@ -138,9 +247,7 @@ const Checkout = () => {
                                 className="form-input"
                             />
                         </div>
-                    </div>
 
-                    <div className="wrapper-3">
                         <div className="city">
                             <label>City</label>
                             <input
@@ -153,6 +260,10 @@ const Checkout = () => {
                             />
                         </div>
 
+                    </div>
+
+                    <div className="wrapper-4">
+
                         <div className="zip-code">
                             <label>ZIP / Postcode</label>
                             <input
@@ -164,18 +275,18 @@ const Checkout = () => {
                                 className="form-input"
                             />
                         </div>
-                    </div>
 
-                    <div className="address">
-                        <label>Street Address</label>
-                        <input
-                            type="text"
-                            name="address"
-                            placeholder="Street Address"
-                            value={form.address}
-                            onChange={handleChange}
-                            className="street-address"
-                        />
+                        <div className="address">
+                            <label>Street Address</label>
+                            <input
+                                type="text"
+                                name="address"
+                                placeholder="Street Address"
+                                value={form.address}
+                                onChange={handleChange}
+                                className="street-address"
+                            />
+                        </div>
                     </div>
 
                     <div className="shipping-information">
@@ -208,6 +319,20 @@ const Checkout = () => {
                                     />
                                 </div>
 
+                                <div className="email">
+                                    <label>Email</label>
+                                    <input
+                                        type="text"
+                                        name="email"
+                                        placeholder="Email"
+                                        value={shippingForm.email}
+                                        onChange={handleShippingChange}
+                                        className="form-input"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="wrapper-2">
                                 <div className="phone-number">
                                     <label>Phone Number</label>
                                     <input
@@ -220,9 +345,6 @@ const Checkout = () => {
                                     />
                                 </div>
 
-                            </div>
-
-                            <div className="wrapper-2">
                                 <div className="country">
                                     <label>Country</label>
                                     <input
@@ -234,7 +356,9 @@ const Checkout = () => {
                                         className="form-input"
                                     />
                                 </div>
+                            </div>
 
+                            <div className="wrapper-3">
                                 <div className="state">
                                     <label>State</label>
                                     <input
@@ -246,9 +370,7 @@ const Checkout = () => {
                                         className="form-input"
                                     />
                                 </div>
-                            </div>
 
-                            <div className="wrapper-3">
                                 <div className="city">
                                     <label>City</label>
                                     <input
@@ -261,6 +383,10 @@ const Checkout = () => {
                                     />
                                 </div>
 
+                            </div>
+
+                            <div className="wrapper-4">
+
                                 <div className="zip-code">
                                     <label>ZIP / Postcode</label>
                                     <input
@@ -272,18 +398,18 @@ const Checkout = () => {
                                         className="form-input"
                                     />
                                 </div>
-                            </div>
 
-                            <div className="address">
-                                <label>Street Address</label>
-                                <input
-                                    type="text"
-                                    name="address"
-                                    placeholder="Street Address"
-                                    value={shippingForm.address}
-                                    onChange={handleShippingChange}
-                                    className="street-address"
-                                />
+                                <div className="address">
+                                    <label>Street Address</label>
+                                    <input
+                                        type="text"
+                                        name="address"
+                                        placeholder="Street Address"
+                                        value={shippingForm.address}
+                                        onChange={handleShippingChange}
+                                        className="street-address"
+                                    />
+                                </div>
                             </div>
 
                             <hr className="section-divider" />
@@ -291,8 +417,16 @@ const Checkout = () => {
                     )}
 
                     <div className="order-note">
-                    <label>Order Note (optional)</label>
-                    <textarea name="comments" rows="4" cols="50" placeholder="Notes about your order, e.g. special notes for delivery">.</textarea>
+                        <label>Order Note (optional)</label>
+                        <textarea
+                            name="note"
+                            rows="4"
+                            cols="50"
+                            placeholder="Notes about your order, e.g. special notes for delivery"
+                            value={form.note}
+                            onChange={handleChange}
+                        />
+
                     </div>
 
                 </div>
@@ -317,27 +451,40 @@ const Checkout = () => {
 
                 <div className="total-price">
                     <div className="subtotal">
-                    <p>Subtotal: </p>
-                    <p>Rs {total}</p>
+                        <p>Subtotal: </p>
+                        <p>Rs {total}</p>
                     </div>
                     <div className="tax">
-                    <p>Tax: </p>
-                    <p> Rs 0</p>
+                        <p>Tax: </p>
+                        <p> Rs 0</p>
                     </div>
                     <div className="shipping">
-                    <p>Shipping: </p>
-                    <p> Rs {shipping}</p>
+                        <p>Shipping: </p>
+                        <p> Rs {shipping}</p>
                     </div>
                     <hr className="section-divider" />
                     <div className="total">
-                    <h3>Total: </h3>
-                    <h3>Rs {total+shipping}</h3>
+                        <h3>Total: </h3>
+                        <h3>Rs {total + shipping}</h3>
                     </div>
                 </div>
 
-                <button onClick={handlePlaceOrder} className="place-order-btn">
-                    Place Order
+                <button
+                    onClick={handlePlaceOrder}
+                    className="place-order-btn"
+                    disabled={placingOrder}
+                >
+                    {placingOrder ? (
+                        <span className="dot-loader">
+                            <span></span>
+                            <span></span>
+                            <span></span>
+                        </span>
+                    ) : (
+                        "Place Order"
+                    )}
                 </button>
+
             </div>
 
         </div>

@@ -17,6 +17,7 @@ const EditProduct = () => {
   const navigate = useNavigate();
 
   const [categories, setCategories] = useState([]);
+  const [imageFile, setImageFile] = useState(null);
 
   const [form, setForm] = useState({
     sku: "",
@@ -59,6 +60,22 @@ const EditProduct = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    let imageUrl = form.image;
+
+    if (imageFile) {
+      const formData = new FormData();
+      formData.append("image", imageFile);
+
+      const uploadRes = await axios.post(
+        "http://localhost:3000/api/uploads",
+        formData
+      );
+
+      console.log(uploadRes.data);
+
+      imageUrl = uploadRes.data.imageUrl;
+    }
+
     try {
       const token = localStorage.getItem("token");
 
@@ -66,6 +83,7 @@ const EditProduct = () => {
         `http://localhost:3000/api/products/${id}`,
         {
           ...form,
+          image: imageUrl,
           price: Number(form.price),
           quantity: Number(form.quantity)
         },
@@ -150,6 +168,25 @@ const EditProduct = () => {
             value={form.category}
             onChange={handleChange}
             label="Category"
+             MenuProps={{
+                          slotProps: {
+                            list: {
+                              sx: {
+                                display: "flex",
+                                flexDirection: "column",
+                                width: "30%"
+                              },
+                            },
+                          },
+                          PaperProps: {
+                            sx: {
+                              "& .MuiMenuItem-root": {
+                                display: "block",
+                                width: "30%"
+                              },
+                            },
+                          },
+                        }}
           >
             {categories.map((cat) => (
               <MenuItem key={cat._id} value={cat._id}>
@@ -159,14 +196,36 @@ const EditProduct = () => {
           </Select>
         </FormControl>
 
-        <TextField
-          name="image"
-          value={form.image}
-          onChange={handleChange}
-          label="Image URL"
-          fullWidth
-          sx={fieldStyles}
-        />
+        <Box>
+          <Typography
+            sx={{
+              color: "#6A0610",
+              fontSize: "13px",
+              marginBottom: 1
+            }}
+          >
+            Product Image
+          </Typography>
+          <Box
+            sx={{
+              border: "1px solid #d9c9c5",
+              borderRadius: "6px",
+              backgroundColor: "#fffdf8",
+              padding: "11px 14px",
+              color: "#6A0610"
+            }}
+          >
+            <input
+              type="file"
+              onChange={(e) => setImageFile(e.target.files[0])}
+              style={{
+                width: "100%",
+                color: "#6A0610",
+                // margin-right: "10px"
+              }}
+            />
+          </Box>
+        </Box>
 
         <TextField
           name="quantity"
@@ -175,6 +234,7 @@ const EditProduct = () => {
           label="Quantity"
           fullWidth
           sx={fieldStyles}
+          style={{marginTop: "18px"}}
         />
 
         <Box sx={{ gridColumn: "1 / -1" }}>

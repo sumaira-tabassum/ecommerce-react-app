@@ -1,10 +1,9 @@
 import { useState } from "react";
-import { Link } from 'react-router-dom'
-import "./Navbar.css"
-import navLinks from "../../data/navLinks"
+import { Link } from "react-router-dom";
+import "./Navbar.css";
+import navLinks from "../../data/navLinks";
 import { FaUser, FaShoppingCart, FaSignOutAlt, FaBars, FaTimes } from "react-icons/fa";
 import { useAuth } from "../../context/AuthContext";
-// import { useOutletContext } from "react-router-dom";
 
 const Navbar = ({ setCartOpen, cart }) => {
   const { user, logout } = useAuth();
@@ -13,8 +12,10 @@ const Navbar = ({ setCartOpen, cart }) => {
   const cartCount = cart.reduce((sum, item) => sum + item.quantity, 0);
 
   return (
-    <nav className='Navbar'>
-      <Link to="/" className="logo"><p>sheglam.</p></Link>
+    <nav className="Navbar">
+      <Link to="/" className="logo" onClick={() => setMenuOpen(false)}>
+        <p>sheglam.</p>
+      </Link>
 
       <div className="menu-btn" onClick={() => setMenuOpen(!menuOpen)}>
         {menuOpen ? <FaTimes /> : <FaBars />}
@@ -35,8 +36,13 @@ const Navbar = ({ setCartOpen, cart }) => {
       </ul>
 
       <div className={menuOpen ? "nav-icons show-icons" : "nav-icons"}>
-
-        <div className="cart-wrapper" onClick={() => setCartOpen(true)}>
+        <div
+          className="cart-wrapper"
+          onClick={() => {
+            setCartOpen(true);
+            setMenuOpen(false);
+          }}
+        >
           <FaShoppingCart className="cart-icon" />
 
           {cartCount > 0 && (
@@ -46,25 +52,30 @@ const Navbar = ({ setCartOpen, cart }) => {
 
         {user ? (
           <>
-            <p className="user-name">
-              {user.name}
-            </p>
+            <p className="user-name">{user.name}</p>
 
             <FaSignOutAlt
               className="logout-icon"
-              onClick={logout}
+              onClick={() => {
+                logout();
+                setMenuOpen(false);
+              }}
               title="Logout"
             />
           </>
         ) : (
-          <Link to="/login" className="login-link" onClick={() => setMenuOpen(false)}>
+          <Link
+            to="/login"
+            className="login-link"
+            onClick={() => setMenuOpen(false)}
+          >
             <FaUser />
             <p>Log In</p>
           </Link>
         )}
       </div>
     </nav>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;

@@ -3,14 +3,28 @@ import Navbar from "../components/Navbar/Navbar";
 import Footer from "../components/Footer/Footer";
 import CartSidebar from "../components/CartSidebar/CartSidebar";
 import { Outlet } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
 
 const CustomerLayout = () => {
-  const [cart, setCart] = useState([]);
-  const [cartOpen, setCartOpen] = useState(false);
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
+  const [cartOpen, setCartOpen] = useState(() => {
+    const savedCartOpen = localStorage.getItem("cartOpen");
+    return savedCartOpen ? JSON.parse(savedCartOpen) : false;
+  });
   const [products, setProducts] = useState([]);
-  const hideLayout = location.pathname === "/checkout";
+  // const hideLayout = location.pathname === "/checkout";
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
+
+  useEffect(() => {
+    localStorage.setItem("cartOpen", JSON.stringify(cartOpen));
+  }, [cartOpen]);
 
   const handleCheckout = async () => {
     try {

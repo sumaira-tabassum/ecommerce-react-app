@@ -53,13 +53,13 @@ const AddProduct = () => {
         formData.append("image", imageFile);
 
         const uploadRes = await axios.post(
-  "http://localhost:3000/api/uploads",
-  formData
-);
+          "http://localhost:3000/api/uploads",
+          formData
+        );
 
-console.log(uploadRes.data);
+        console.log(uploadRes.data);
 
-imageUrl = uploadRes.data.imageUrl; 
+        imageUrl = uploadRes.data.imageUrl;
       }
 
       await axios.post(
@@ -71,12 +71,12 @@ imageUrl = uploadRes.data.imageUrl;
           }
         }
       );
-      
+
       alert("Product added");
       navigate("/admin/products");
     } catch (error) {
       console.log(error);
-      
+
     }
     // console.log(uploadRes.data);
   };
@@ -150,6 +150,25 @@ imageUrl = uploadRes.data.imageUrl;
             value={form.category}
             label="Category"
             onChange={handleChange}
+            MenuProps={{
+              slotProps: {
+                list: {
+                  sx: {
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "30%"
+                  },
+                },
+              },
+              PaperProps: {
+                sx: {
+                  "& .MuiMenuItem-root": {
+                    display: "block",
+                    width: "30%"
+                  },
+                },
+              },
+            }}
           >
             {categories.map((cat) => (
               <MenuItem key={cat._id} value={cat._id}>
@@ -158,6 +177,7 @@ imageUrl = uploadRes.data.imageUrl;
             ))}
           </Select>
         </FormControl>
+
 
         <Box>
           <Typography
@@ -184,7 +204,8 @@ imageUrl = uploadRes.data.imageUrl;
               onChange={(e) => setImageFile(e.target.files[0])}
               style={{
                 width: "100%",
-                color: "#6A0610"
+                color: "#6A0610",
+                // margin-right: "10px"
               }}
             />
           </Box>
@@ -197,6 +218,7 @@ imageUrl = uploadRes.data.imageUrl;
           onChange={handleChange}
           fullWidth
           sx={fieldStyles}
+          style={{marginTop: "18px"}}
         />
 
         <Box sx={{ gridColumn: "1 / -1" }}>

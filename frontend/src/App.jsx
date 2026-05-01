@@ -21,10 +21,13 @@ import AdminRoute from "./routes/AdminRoute.jsx";
 import Login from "./pages/Auth/Login.jsx";
 import Signup from "./pages/Auth/Signup.jsx";
 import Cart from "./pages/Cart/Cart.jsx"
+import ScrollToTop from "./components/ScrollToTop.jsx";
+import AdminLogin from "./admin/pages/AdminLogin/AdminLogin.jsx"
 
 function App() {
   return (
     <div>
+      <ScrollToTop />
 
       <Routes>
 
@@ -39,8 +42,9 @@ function App() {
 
         <Route path="login" element={<Login />} />
         <Route path="signup" element={<Signup />} />
+        <Route path="/admin/login" element={<AdminLogin />} />
 
-        <Route path="/admin" element={<ProtectedRoute><AdminLayout /></ProtectedRoute>}>
+        <Route path="/admin" element={<AdminRoute><AdminLayout /></AdminRoute>}>
 
           <Route index element={<Dashboard />} />
 

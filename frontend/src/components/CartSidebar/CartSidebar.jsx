@@ -1,9 +1,9 @@
 import "./CartSidebar.css";
 import { FaTrashAlt } from 'react-icons/fa';
-import { FaTimes } from 'react-icons/fa'; // Font Awesome cross
-import { IoClose } from 'react-icons/io5'; // Ionicons cross
+// import { FaTimes } from 'react-icons/fa'; // Font Awesome cross
+// import { IoClose } from 'react-icons/io5'; // Ionicons cross
 import { MdClose } from 'react-icons/md'; // Material Design cross
-import { FaLock } from 'react-icons/fa';
+// import { FaLock } from 'react-icons/fa';
 import { MdLock } from 'react-icons/md';
 import { useNavigate } from "react-router-dom";
 

@@ -2,6 +2,8 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "./Products.css";
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
 
 import {
   Table,
@@ -153,7 +155,7 @@ const Products = () => {
                     to={`/admin/products/edit/${product._id}`}
                     style={{ textDecoration: "none", marginRight: "8px" }}
                   >
-                    <Button
+                    {/* <Button
                       size="small"
                       sx={{
                         color: "#6A0610",
@@ -167,14 +169,21 @@ const Products = () => {
                           borderColor: "#6A0610"
                         }
                       }}
-                    >
-                      Edit
-                    </Button>
+                    > */}
+                    <EditIcon
+                      fontSize="small"
+                      sx={{
+                        marginRight: "5px",
+                        color: "#6A0610",
+                      }}>
+                    </EditIcon>
+                    {/* Edit
+                    </Button> */}
                   </Link>
 
-                  <Button
+                  {/* <Button
                     size="small"
-                    onClick={() => handleDelete(product._id)}
+                    
                     sx={{
                       color: "#b42318",
                       border: "1px solid #e7b3ae",
@@ -186,9 +195,23 @@ const Products = () => {
                         borderColor: "#d92d20"
                       }
                     }}
-                  >
-                    Delete
-                  </Button>
+                  > */}
+                  <DeleteForeverIcon
+                    fontSize="small"
+
+                    sx={{
+                      marginRight: "5px",
+                      color: "#b42318",
+                      cursor: "pointer",
+                      "&:hover": {
+                        backgroundColor: "#fff1f0",
+                        borderColor: "#d92d20"
+                      }
+                    }}
+                    onClick={() => handleDelete(product._id)} />
+                  {/* Delete
+                  </Button> */}
+
                 </TableCell>
               </TableRow>
             ))}

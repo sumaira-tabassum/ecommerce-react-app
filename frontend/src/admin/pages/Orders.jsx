@@ -10,22 +10,43 @@ import {
   TableRow,
   Paper,
   Typography,
-  Chip,
-  Box
+  Box,
+  FormControl,
+  Select,
+  MenuItem
 } from "@mui/material";
 
-const btnStyle = {
-  border: "1px solid #6A0610",
-  background: "transparent",
-  color: "#6A0610",
-  borderRadius: "4px",
-  padding: "2px 6px",
-  fontSize: "11px",
-  cursor: "pointer"
+const getStatusStyles = (status) => {
+  const styles = {
+    pending: {
+      // backgroundColor: "#fff4e5",
+      color: "#9a5b00"
+    },
+    processing: {
+      // backgroundColor: "#e8f1ff",
+      color: "#1d4ed8"
+    },
+    "in transit": {
+      // backgroundColor: "#f1ebff",
+      color: "#6d28d9"
+    },
+    delivered: {
+      // backgroundColor: "#edf7ed",
+      color: "#1f7a1f"
+    },
+    cancelled: {
+      // backgroundColor: "#fdecec",
+      color: "#b42318"
+    }
+  };
+
+  return styles[status] || styles.pending;
 };
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
+  const [updatingOrderId, setUpdatingOrderId] = useState(null);
+  const statusOptions = ["pending", "processing", "in transit", "delivered", "cancelled"];
 
   // const updateStatus = async (id, status) => {
   //   try {
@@ -46,18 +67,20 @@ const Orders = () => {
 
   const updateStatus = async (id, status) => {
     try {
-      await axios.put(`http://localhost:3000/api/orders/${id}`, {
+      setUpdatingOrderId(id);
+      const response = await axios.put(`http://localhost:3000/api/orders/${id}`, {
         status
       });
 
-      // update UI instantly
       setOrders((prev) =>
         prev.map((o) =>
-          o._id === id ? { ...o, status } : o
+          o._id === id ? { ...o, status: response.data.order.status } : o
         )
       );
     } catch (error) {
-      console.log(error);
+      console.log(error.response?.data || error.message);
+    } finally {
+      setUpdatingOrderId(null);
     }
   };
 
@@ -107,7 +130,7 @@ const Orders = () => {
         <Table>
           <TableHead>
             <TableRow sx={{ backgroundColor: "#f8ece8" }}>
-              <TableCell sx={{ color: "#6A0610", fontWeight: 600 }}>Order ID</TableCell>
+              <TableCell sx={{ color: "#6A0610", fontWeight: 600 }}>Order Number</TableCell>
               <TableCell sx={{ color: "#6A0610", fontWeight: 600 }}>Total</TableCell>
               <TableCell sx={{ color: "#6A0610", fontWeight: 600 }}>Items</TableCell>
               <TableCell sx={{ color: "#6A0610", fontWeight: 600 }}>Status</TableCell>
@@ -132,7 +155,7 @@ const Orders = () => {
                     borderColor: "#eadfdb"
                   }}
                 >
-                  {order._id}
+                  {order.orderNumber}
                 </TableCell>
 
                 <TableCell
@@ -148,7 +171,8 @@ const Orders = () => {
                 <TableCell
                   sx={{
                     color: "#6A0610",
-                    borderColor: "#eadfdb"
+                    borderColor: "#eadfdb",
+                    verticalAlign: "top"
                   }}
                 >
                   {order.orderItems.map((item, i) => (
@@ -164,21 +188,81 @@ const Orders = () => {
                   ))}
                 </TableCell>
 
-                <TableCell sx={{ borderColor: "#eadfdb" }}>
-                  <Chip
-                    label={order.status || "pending"}
-                    size="small"
-                    sx={{
-                      backgroundColor:
-                        order.status === "delivered"
-                          ? "#edf7ed"
-                          : "#fff4e5",
-                      color: "#6A0610",
-                      fontWeight: 500,
-                      textTransform: "capitalize",
-                      borderRadius: "999px"
-                    }}
-                  />
+                <TableCell
+                  sx={{
+                    borderColor: "#eadfdb",
+                    verticalAlign: "top",
+                    width: "170px",
+                    paddingTop: 2
+                  }}
+                >
+                  <FormControl size="small" fullWidth>
+                    <Select
+                      value={order.status || "pending"}
+                      onChange={(e) => updateStatus(order._id, e.target.value)}
+                      disabled={updatingOrderId === order._id}
+                      displayEmpty
+                      MenuProps={{
+                                    slotProps: {
+                                      list: {
+                                        sx: {
+                                          display: "flex",
+                                          flexDirection: "column",
+                                          // width: "30%"
+                                        },
+                                      },
+                                    },
+                                    PaperProps: {
+                                      sx: {
+                                        "& .MuiMenuItem-root": {
+                                          display: "block",
+                                          // width: "30%"
+                                        },
+                                      },
+                                    },
+                                  }}
+                      sx={{
+                        color: "#6A0610",
+                        backgroundColor: getStatusStyles(order.status || "pending").backgroundColor,
+                        color: getStatusStyles(order.status || "pending").color,
+                        borderRadius: "8px",
+                        textTransform: "capitalize",
+                        fontSize: "13px",
+                        minHeight: "36px",
+                        "& .MuiSelect-select": {
+                          padding: "8px 28px 8px 12px",
+                          display: "flex",
+                          alignItems: "center"
+                        },
+                        "& .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#d9c9c5"
+                        },
+                        "&:hover .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#6A0610"
+                        },
+                        "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                          borderColor: "#6A0610"
+                        }
+                      }}
+                    >
+                      {statusOptions.map((status) => (
+                        <MenuItem
+                          key={status}
+                          value={status}
+                          sx={{
+                            fontSize: "13px",
+                            minHeight: "34px",
+                            // width: "100%",
+                            // height: "100%",
+                            textTransform: "capitalize",
+                            ...getStatusStyles(status)
+                          }}
+                        >
+                          {status}
+                        </MenuItem>
+                      ))}
+                    </Select>
+                  </FormControl>
                 </TableCell>
 
               </TableRow>

@@ -37,7 +37,7 @@
     bottom: 0;
     left: 60px;
     margin: 0;
-    line-height: 0.9;
+    /* line-height: 0.9; */
 }
 .productCards{
     display: grid;
@@ -45,13 +45,18 @@
     grid-template-columns: 2fr 1fr 1fr;
     gap: 40px;
     padding: 40px;
+    align-items: stretch;
 }
 .productCards > :first-child {
   grid-row: span 2;
 }
+
 .productCards > :first-child img {
-  height: 700px;
-} 
+  width: 100%;
+  height: 100%;
+  min-height: 700px;
+  object-fit: cover;
+}
 .testimonial{
     background-color: #6A0610;
     min-height: 280px;
@@ -172,7 +177,7 @@
   }
 
   .productCards > :first-child img {
-    height: 560px;
+    min-height: 560px;
   }
 
   .testimonial{
@@ -212,6 +217,7 @@
   }
 
   .productCards > :first-child img {
+    min-height: 420px;
     height: 420px;
   }
 
@@ -268,8 +274,8 @@
   }
 
   .productCards > :first-child img {
-    height: auto;
-    max-height: 420px;
+    min-height: 300px;
+    height: 300px;
   }
 
   .testimonial{
@@ -281,58 +287,5 @@
   .testimonialAuthor{
     font-size: 16px;
     margin-top: 20px;
-  }
-}
-
-@media screen and (max-width: 480px) {
-  .hero{
-    min-height: 360px;
-  }
-
-  .heroText{
-    padding: 40px 15px;
-    font-size: 18px;
-  }
-
-  .heroButton{
-    margin-top: 16px;
-    padding: 9px 13px;
-    font-size: 13px;
-  }
-
-  .heroTitle{
-    font-size: 46px;
-    left: 15px;
-    bottom: 12px;
-  }
-
-  .productsHeader {
-    padding: 20px 15px 0 15px;
-    gap: 15px;
-  }
-
-  .productsTitle{
-    font-size: 20px;
-  }
-
-  .shopBtn{
-    padding: 7px 14px;
-    font-size: 13px;
-  }
-
-  .productCards{
-    padding: 20px 15px 25px 15px;
-    gap: 18px;
-  }
-
-  .testimonial{
-    min-height: 190px;
-    font-size: 18px;
-    padding: 35px 15px;
-  }
-
-  .testimonialAuthor{
-    font-size: 14px;
-    margin-top: 16px;
   }
 }
