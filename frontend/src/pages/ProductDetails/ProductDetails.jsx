@@ -5,6 +5,8 @@ import "./ProductDetails.css"
 import { useOutletContext, useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "http://localhost:3000";
+
 const ProductDetails = () => {
     const { id } = useParams();
     const [product, setProduct] = useState(null);
@@ -18,7 +20,7 @@ const ProductDetails = () => {
             try {
                 setLoading(true);
 
-                const res = await axios.get(`http://localhost:3000/api/products/${id}`);
+                const res = await axios.get(`${API_BASE_URL}/api/products/${id}`);
                 setProduct(res.data);
             } catch (error) {
                 console.log(error);
@@ -61,6 +63,7 @@ const ProductDetails = () => {
     // if (!product) return <p>Loading...</p>;
 
     if (loading) return <Loader />;
+    if (!product) return <p style={{ padding: "32px", color: "#6A0610" }}>Product not found.</p>;
 
     return (
         <div className="product">
