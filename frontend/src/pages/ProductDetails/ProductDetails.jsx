@@ -5,7 +5,7 @@ import "./ProductDetails.css"
 import { useOutletContext, useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://heartfelt-nourishment-production-1ad0.up.railway.app/api";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://heartfelt-nourishment-production-1ad0.up.railway.app";
 
 const ProductDetails = () => {
     const { id } = useParams();

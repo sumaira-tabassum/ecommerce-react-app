@@ -14,7 +14,7 @@ const ShopAll = () => {
       try {
         setLoading(true);
 
-        const res = await axios.get("http://localhost:3000/api/products");
+        const res = await axios.get("https://heartfelt-nourishment-production-1ad0.up.railway.app/");
         setProducts(res.data);
 
       } catch (error) {
