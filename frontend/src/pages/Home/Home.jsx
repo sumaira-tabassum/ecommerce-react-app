@@ -5,13 +5,14 @@ import ProductCard from "../../components/ProductCard/ProductCard.jsx";
 import { FaFacebookF, FaInstagram, FaTiktok } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import ShinyText from "../../components/ShinyText/ShinyText.jsx";
+import axios from "axios";
 
 function Home() {
     const [products, setProducts] = useState([]);
     useEffect(() => {
         const fetchProducts = async () => {
             try {
-                const res = await API.get("/products");
+                const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/products`);
                 setProducts(res.data);
             }
             catch (error) {
