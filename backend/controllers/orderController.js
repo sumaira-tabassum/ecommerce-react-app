@@ -72,33 +72,33 @@ export const createOrder = async (req, res) => {
         shippingFee
     });
     let emailSent = false;
-//     const populatedOrder = await Order.findById(newOrder._id).populate("orderItems.product");
+    const populatedOrder = await Order.findById(newOrder._id).populate("orderItems.product");
 
-//     try {
-//         await sendOrderEmail({
-//             toEmail: billingInfo.email,
-//             customerName: billingInfo.name,
-//             orderNumber: newOrder.orderNumber,
-//             orderDate: newOrder.createdAt,
-//             totalPrice: newOrder.totalPrice,
-//             shippingFee: newOrder.shippingFee,
-//             billing: billingInfo,
-//             shipping: sameAsBilling ? billingInfo : shippingInfo,
-//             phone: billingInfo.phone,
-//             items: populatedOrder.orderItems
-//         });
+    try {
+        await sendOrderEmail({
+            toEmail: billingInfo.email,
+            customerName: billingInfo.name,
+            orderNumber: newOrder.orderNumber,
+            orderDate: newOrder.createdAt,
+            totalPrice: newOrder.totalPrice,
+            shippingFee: newOrder.shippingFee,
+            billing: billingInfo,
+            shipping: sameAsBilling ? billingInfo : shippingInfo,
+            // phone: billingInfo.phone,
+            items: populatedOrder.orderItems
+        });
 
-//         emailSent = true;
-//     } catch (emailError) {
-//         console.error("EMAIL SEND ERROR FULL:", {
-//             text: emailError?.text,
-//             status: emailError?.status,
-//             message: emailError?.message,
-//             name: emailError?.name,
-//             stack: emailError?.stack
-//         });
+        emailSent = true;
+    } catch (emailError) {
+        console.error("EMAIL SEND ERROR FULL:", {
+            text: emailError?.text,
+            status: emailError?.status,
+            message: emailError?.message,
+            name: emailError?.name,
+            stack: emailError?.stack
+        });
 
-//     }
+    }
 
     res.status(201).json({
         message: "Order created successfully!",
