@@ -120,8 +120,9 @@ const Checkout = () => {
         try {
             const orderData = {
                 user: null,
-                guestInfo: billingInfo,
-                shippingInfo: sameAsBilling ? billingInfo : shippingInfo,
+                billingInfo: form,
+                shippingInfo: sameAsBilling ? form : shippingForm,
+                sameAsBilling,
                 orderItems: cart.map((item) => ({
                     product: item.product._id,
                     quantity: item.quantity

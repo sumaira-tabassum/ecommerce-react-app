@@ -4,8 +4,8 @@ import { sendOrderEmail } from "../utils/sendOrderEmail.js";
 
 export const createOrder = async (req, res) => {
     const { user, billingInfo, shippingInfo, sameAsBilling, orderItems } = req.body;
-    if (!user && !guestInfo) {
-        return res.status(400).json({ message: "User/Guest info is required" })
+    if (!user && !billingInfo) {
+        return res.status(400).json({ message: "User/Billing info is required" });
     }
     if (!orderItems || orderItems.length < 1) {
         return res.status(400).json({ message: "Order should contain at least one item." });
@@ -65,7 +65,8 @@ export const createOrder = async (req, res) => {
     const newOrder = await Order.create({
         orderNumber: generateOrderNumber(),
         user,
-        guestInfo,
+        billingInfo,
+        shippingInfo: sameAsBilling ? billingInfo : shippingInfo,
         orderItems: processedItems,
         totalPrice,
         shippingFee
@@ -74,18 +75,18 @@ export const createOrder = async (req, res) => {
     const populatedOrder = await Order.findById(newOrder._id).populate("orderItems.product");
 
     try {
-       await sendOrderEmail({
-  toEmail: billingInfo.email,
-  customerName: billingInfo.name,
-  orderNumber: newOrder.orderNumber,
-  orderDate: newOrder.createdAt,
-  totalPrice: newOrder.totalPrice,
-  shippingFee: newOrder.shippingFee,
-  billing: billingInfo,
-  shipping: sameAsBilling ? billingInfo : shippingInfo,
-  phone: billingInfo.phone,
-  items: populatedOrder.orderItems
-});
+        await sendOrderEmail({
+            toEmail: billingInfo.email,
+            customerName: billingInfo.name,
+            orderNumber: newOrder.orderNumber,
+            orderDate: newOrder.createdAt,
+            totalPrice: newOrder.totalPrice,
+            shippingFee: newOrder.shippingFee,
+            billing: billingInfo,
+            shipping: sameAsBilling ? billingInfo : shippingInfo,
+            phone: billingInfo.phone,
+            items: populatedOrder.orderItems
+        });
 
         emailSent = true;
     } catch (emailError) {
