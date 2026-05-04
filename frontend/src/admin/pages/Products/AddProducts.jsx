@@ -28,7 +28,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const res = await axios.get(`{import.meta.env.VITE_BASE_URL}/api/categories`);
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/categories`);
       setCategories(res.data);
     };
 

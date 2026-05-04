@@ -23,7 +23,7 @@ const Products = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await axios.get(`{import.meta.env.VITE_BASE_URL}/api/products`);
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/products`);
       setProducts(res.data);
     };
 
@@ -36,7 +36,7 @@ const Products = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`{import.meta.env.VITE_BASE_URL}/api/products/${id}`, {
+      await axios.delete(`${import.meta.env.VITE_BASE_URL}/api/products/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
