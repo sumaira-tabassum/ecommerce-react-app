@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import API from "../../api/api";
 import ProductCard from "../../components/ProductCard/ProductCard.jsx";
 import { useOutletContext } from "react-router-dom";
 import Loader from "../../components/Loader/Loader.jsx";
+import axios from "axios";
 
 const ShopAll = () => {
   const [products, setProducts] = useState([]);
@@ -14,7 +14,7 @@ const ShopAll = () => {
       try {
         setLoading(true);
 
-        const res = await API.get("/products");
+        const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/products`);
         setProducts(res.data);
 
       } catch (error) {

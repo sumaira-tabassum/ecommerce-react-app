@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import API from "../../api/api";
-
+import axios from "axios";
 import {
   Table,
   TableBody,
@@ -68,9 +67,10 @@ const Orders = () => {
   const updateStatus = async (id, status) => {
     try {
       setUpdatingOrderId(id);
-      const response = await API.put(`/orders/${id}`, {
-        status
-      });
+      await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/api/orders/${id}`,
+        { status }
+      );
 
       setOrders((prev) =>
         prev.map((o) =>
@@ -203,24 +203,24 @@ const Orders = () => {
                       disabled={updatingOrderId === order._id}
                       displayEmpty
                       MenuProps={{
-                                    slotProps: {
-                                      list: {
-                                        sx: {
-                                          display: "flex",
-                                          flexDirection: "column",
-                                          // width: "30%"
-                                        },
-                                      },
-                                    },
-                                    PaperProps: {
-                                      sx: {
-                                        "& .MuiMenuItem-root": {
-                                          display: "block",
-                                          // width: "30%"
-                                        },
-                                      },
-                                    },
-                                  }}
+                        slotProps: {
+                          list: {
+                            sx: {
+                              display: "flex",
+                              flexDirection: "column",
+                              // width: "30%"
+                            },
+                          },
+                        },
+                        PaperProps: {
+                          sx: {
+                            "& .MuiMenuItem-root": {
+                              display: "block",
+                              // width: "30%"
+                            },
+                          },
+                        },
+                      }}
                       sx={{
                         color: "#6A0610",
                         backgroundColor: getStatusStyles(order.status || "pending").backgroundColor,

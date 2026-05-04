@@ -1,9 +1,9 @@
 import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
-import API from "../../api/api";
 import "./Checkout.css";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Checkout = () => {
     const { cart, setCart } = useOutletContext();
@@ -127,7 +127,7 @@ const Checkout = () => {
                 }))
             };
 
-            const response = await API.post("/orders", orderData);
+            const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/orders`, orderData);
 
             setCart([]);
             resetCheckoutState();

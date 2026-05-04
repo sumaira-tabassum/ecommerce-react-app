@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import API from "../../../api/api";
 import "./Products.css";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
+import axios from "axios";
 
 import {
   Table,
@@ -23,7 +23,7 @@ const Products = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await API.get("/products");
+      const res = await axios.get(`{import.meta.env.VITE_BASE_URL}/api/products`);
       setProducts(res.data);
     };
 
@@ -36,7 +36,7 @@ const Products = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await API.delete(`/products/${id}`, {
+      await axios.delete(`{import.meta.env.VITE_BASE_URL}/api/products/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

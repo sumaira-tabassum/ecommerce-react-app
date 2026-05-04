@@ -1,5 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
-import API from "../api/api";
+import axios from "axios";
 
 const AuthContext = createContext();
 
@@ -8,7 +8,7 @@ export const AuthProvider = ({ children }) => {
   const [loading, setLoading] = useState(true);
 
   const token = localStorage.getItem("token");
-  
+
   const fetchUser = async () => {
     if (!token) {
       setLoading(false);
@@ -16,7 +16,7 @@ export const AuthProvider = ({ children }) => {
     }
 
     try {
-      const res = await API.get("/auth/me", {
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/auth/me`, {
         headers: {
           Authorization: `Bearer ${token}`
         }
@@ -36,24 +36,25 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-  const res = await API.post("/auth/login", {
-    email,
-    password
-  });
+    const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/signup`, {
+      name,
+      email,
+      password
+    });
 
-  localStorage.setItem("token", res.data.token);
+    localStorage.setItem("token", res.data.token);
 
-  const userRes = await API.get("/auth/me", {
-    headers: {
-      Authorization: `Bearer ${res.data.token}`
-    }
-  });
+    const userRes = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/auth/me`, {
+      headers: {
+        Authorization: `Bearer ${res.data.token}`
+      }
+    });
 
-  setUser(userRes.data);
-  setLoading(false);
+    setUser(userRes.data);
+    setLoading(false);
 
-  return userRes.data;
-};
+    return userRes.data;
+  };
 
   const signup = async (name, email, password) => {
     await API.post("/auth/signup", {

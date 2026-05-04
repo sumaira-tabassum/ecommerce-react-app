@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import API from "../../../api/api";
+import axios from "axios";
 import {
   TextField,
   Button,
@@ -31,7 +31,7 @@ const EditProduct = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const res = await API.get("/categories");
+      const res = await axios.get(`${import.meta.env.VITE_BASE_URL}/api/categories`);
       setCategories(res.data);
     };
 
@@ -40,8 +40,8 @@ const EditProduct = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const res = await API.get(
-        `/products/${id}`
+      const res = await axios.get(
+        `${import.meta.env.VITE_BASE_URL}/api/products/${id}`
       );
 
       setForm({
@@ -66,10 +66,7 @@ const EditProduct = () => {
       const formData = new FormData();
       formData.append("image", imageFile);
 
-      const uploadRes = await API.post(
-        "/uploads",
-        formData
-      );
+      const uploadRes = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/uploads`, formData);
 
       console.log(uploadRes.data);
 
@@ -79,8 +76,8 @@ const EditProduct = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await API.put(
-        `/products/${id}`,
+      await axios.put(
+        `${import.meta.env.VITE_BASE_URL}/api/products/${id}`,
         {
           ...form,
           image: imageUrl,
@@ -168,25 +165,25 @@ const EditProduct = () => {
             value={form.category}
             onChange={handleChange}
             label="Category"
-             MenuProps={{
-                          slotProps: {
-                            list: {
-                              sx: {
-                                display: "flex",
-                                flexDirection: "column",
-                                width: "30%"
-                              },
-                            },
-                          },
-                          PaperProps: {
-                            sx: {
-                              "& .MuiMenuItem-root": {
-                                display: "block",
-                                width: "30%"
-                              },
-                            },
-                          },
-                        }}
+            MenuProps={{
+              slotProps: {
+                list: {
+                  sx: {
+                    display: "flex",
+                    flexDirection: "column",
+                    width: "30%"
+                  },
+                },
+              },
+              PaperProps: {
+                sx: {
+                  "& .MuiMenuItem-root": {
+                    display: "block",
+                    width: "30%"
+                  },
+                },
+              },
+            }}
           >
             {categories.map((cat) => (
               <MenuItem key={cat._id} value={cat._id}>
@@ -234,7 +231,7 @@ const EditProduct = () => {
           label="Quantity"
           fullWidth
           sx={fieldStyles}
-          style={{marginTop: "18px"}}
+          style={{ marginTop: "18px" }}
         />
 
         <Box sx={{ gridColumn: "1 / -1" }}>

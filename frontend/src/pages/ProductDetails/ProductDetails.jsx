@@ -1,9 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import API from "../../api/api";
 import "./ProductDetails.css"
 import { useOutletContext, useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
+import axios from "axios";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -18,7 +18,9 @@ const ProductDetails = () => {
             try {
                 setLoading(true);
 
-                const res = await API.get(`/products/${id}`);
+                const res = await axios.get(
+                    `${import.meta.env.VITE_BASE_URL}/api/products/${id}`
+                );
                 setProduct(res.data);
             } catch (error) {
                 console.log(error);

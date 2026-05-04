@@ -1,4 +1,3 @@
-import API from "../../../api/api";
 import {
   TextField,
   Button,
@@ -9,6 +8,7 @@ import {
   InputLabel,
   FormControl
 } from "@mui/material";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
 const AddProduct = () => {
@@ -28,7 +28,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const res = await API.get("/categories");
+      const res = await axios.get(`{import.meta.env.VITE_BASE_URL}/api/categories`);
       setCategories(res.data);
     };
 
@@ -51,18 +51,15 @@ const AddProduct = () => {
         const formData = new FormData();
         formData.append("image", imageFile);
 
-        const uploadRes = await API.post(
-          "/uploads",
-          formData
-        );
+        await axios.post(`${import.meta.env.VITE_BASE_URL}/api/uploads`, formData);
 
         console.log(uploadRes.data);
 
         imageUrl = uploadRes.data.imageUrl;
       }
 
-      await API.post(
-        "/products",
+      await axios.post(
+        `${import.meta.env.VITE_BASE_URL}/api/products`,
         { ...form, image: imageUrl },
         {
           headers: {
