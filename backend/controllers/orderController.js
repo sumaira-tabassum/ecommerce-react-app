@@ -3,7 +3,7 @@ import Product from "../models/Product.js";
 import { sendOrderEmail } from "../utils/sendOrderEmail.js";
 
 export const createOrder = async (req, res) => {
-    const { user, guestInfo, orderItems } = req.body;
+    const { user, billingInfo, shippingInfo, sameAsBilling, orderItems } = req.body;
     if (!user && !guestInfo) {
         return res.status(400).json({ message: "User/Guest info is required" })
     }
@@ -75,18 +75,16 @@ export const createOrder = async (req, res) => {
 
     try {
        await sendOrderEmail({
-    toEmail: guestInfo.email,
-    customerName: guestInfo.name,
-    orderNumber: newOrder.orderNumber,
-    orderDate: newOrder.createdAt,
-    totalPrice: newOrder.totalPrice,
-    shippingFee: newOrder.shippingFee,
-    address: guestInfo.address,
-    city: guestInfo.city,
-    state: guestInfo.state,
-    country: guestInfo.country,
-    phone: guestInfo.phone,
-    items: populatedOrder.orderItems
+  toEmail: billingInfo.email,
+  customerName: billingInfo.name,
+  orderNumber: newOrder.orderNumber,
+  orderDate: newOrder.createdAt,
+  totalPrice: newOrder.totalPrice,
+  shippingFee: newOrder.shippingFee,
+  billing: billingInfo,
+  shipping: sameAsBilling ? billingInfo : shippingInfo,
+  phone: billingInfo.phone,
+  items: populatedOrder.orderItems
 });
 
         emailSent = true;

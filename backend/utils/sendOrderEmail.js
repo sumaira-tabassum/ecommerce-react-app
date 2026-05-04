@@ -1,37 +1,37 @@
 import emailjs from "@emailjs/nodejs";
 
 export const sendOrderEmail = async ({
-    toEmail,
-    customerName,
-    orderNumber,
-    orderDate,
-    totalPrice,
-    shippingFee,
-    address,
-    city,
-    state,
-    country,
-    phone,
-    items
+  toEmail,
+  customerName,
+  orderNumber,
+  orderDate,
+  totalPrice,
+  shippingFee,
+  address,
+  city,
+  state,
+  country,
+  phone,
+  items
 }) => {
-    const formattedDate = new Intl.DateTimeFormat("en-PK", {
-        day: "2-digit",
-        month: "long",
-        year: "numeric"
-    }).format(new Date(orderDate));
+  const formattedDate = new Intl.DateTimeFormat("en-PK", {
+    day: "2-digit",
+    month: "long",
+    year: "numeric"
+  }).format(new Date(orderDate));
 
-    const subtotal = totalPrice - shippingFee;
+  const subtotal = totalPrice - shippingFee;
 
-   const orderItemsHtml = (items || [])
-  .map((item) => {
-    const image = item.product?.image || "";
-    const name = item.product?.name || "Product";
-    const description = item.product?.description || "";
-    const quantity = item.quantity || 0;
-    const price = item.product?.price || 0;
-    const lineTotal = price * quantity;
+  const orderItemsHtml = (items || [])
+    .map((item) => {
+      const image = item.product?.image || "";
+      const name = item.product?.name || "Product";
+      const description = item.product?.description || "";
+      const quantity = item.quantity || 0;
+      const price = item.product?.price || 0;
+      const lineTotal = price * quantity;
 
-    return `
+      return `
       <tr>
         <td style="padding:16px 0;border-bottom:1px solid #efe3dc;">
           
@@ -71,35 +71,41 @@ export const sendOrderEmail = async ({
         </td>
       </tr>
     `;
-  })
-  .join("");
+    })
+    .join("");
 
-    const shippingAddressHtml = `
-        <p style="margin:0 0 6px;font-size:15px;font-weight:600;color:#6A0610;">${customerName}</p>
-        <p style="margin:0 0 6px;font-size:14px;line-height:1.7;color:#8b6258;">${address}</p>
-        <p style="margin:0 0 6px;font-size:14px;line-height:1.7;color:#8b6258;">${city}, ${state}, ${country}</p>
-        <p style="margin:0;font-size:14px;line-height:1.7;color:#8b6258;">Phone: ${phone}</p>
-    `;
+  const formatAddress = (a) => `
+  <p style="margin:0 0 6px;font-weight:600;color:#6A0610;">${a.name}</p>
+  <p style="margin:0 0 6px;color:#8b6258;">${a.address}</p>
+  <p style="margin:0 0 6px;color:#8b6258;">${a.city}, ${a.state}, ${a.country}</p>
+  <p style="margin:0;color:#8b6258;">Phone: ${a.phone}</p>
+`;
 
-    const templateParams = {
-        to_email: toEmail,
-        customer_name: customerName,
-        order_number: orderNumber,
-        order_date: formattedDate,
-        subtotal: subtotal,
-        shipping_fee: shippingFee,
-        total_price: totalPrice,
-        order_items_html: orderItemsHtml,
-        shipping_address_html: shippingAddressHtml
-    };
+  const billingAddressHtml = formatAddress(billing);
+  const shippingAddressHtml = formatAddress(shipping);
 
-    return await emailjs.send(
-        process.env.EMAILJS_SERVICE_ID,
-        process.env.EMAILJS_TEMPLATE_ID,
-        templateParams,
-        {
-            publicKey: process.env.EMAILJS_PUBLIC_KEY,
-            privateKey: process.env.EMAILJS_PRIVATE_KEY
-        }
-    );
+
+  const templateParams = {
+    to_email: toEmail,
+    customer_name: customerName,
+    order_number: orderNumber,
+    order_date: formattedDate,
+    subtotal: subtotal,
+    shipping_fee: shippingFee,
+    total_price: totalPrice,
+    order_items_html: orderItemsHtml,
+    shipping_address_html: shippingAddressHtml,
+    billing_address_html: billingAddressHtml,
+shipping_address_html: shippingAddressHtml,
+  };
+
+  return await emailjs.send(
+    process.env.EMAILJS_SERVICE_ID,
+    process.env.EMAILJS_TEMPLATE_ID,
+    templateParams,
+    {
+      publicKey: process.env.EMAILJS_PUBLIC_KEY,
+      privateKey: process.env.EMAILJS_PRIVATE_KEY
+    }
+  );
 };

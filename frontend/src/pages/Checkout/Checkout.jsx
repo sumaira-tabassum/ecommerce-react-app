@@ -109,7 +109,7 @@ const Checkout = () => {
         });
     };
 
-    
+
     const handlePlaceOrder = async () => {
         if (placingOrder) return;
         if (!form.name || !form.email || !form.phone || !form.country || !form.state || !form.city || !form.address) {
@@ -120,7 +120,8 @@ const Checkout = () => {
         try {
             const orderData = {
                 user: null,
-                guestInfo: form,
+                guestInfo: billingInfo,
+                shippingInfo: sameAsBilling ? billingInfo : shippingInfo,
                 orderItems: cart.map((item) => ({
                     product: item.product._id,
                     quantity: item.quantity
