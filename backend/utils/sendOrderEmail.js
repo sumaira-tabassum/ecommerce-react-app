@@ -7,11 +7,8 @@ export const sendOrderEmail = async ({
   orderDate,
   totalPrice,
   shippingFee,
-  address,
-  city,
-  state,
-  country,
-  phone,
+  billing,
+  shipping,
   items
 }) => {
   const formattedDate = new Intl.DateTimeFormat("en-PK", {
@@ -95,8 +92,7 @@ export const sendOrderEmail = async ({
     total_price: totalPrice,
     order_items_html: orderItemsHtml,
     shipping_address_html: shippingAddressHtml,
-    billing_address_html: billingAddressHtml,
-shipping_address_html: shippingAddressHtml,
+    billing_address_html: billingAddressHtml
   };
 
   return await emailjs.send(
