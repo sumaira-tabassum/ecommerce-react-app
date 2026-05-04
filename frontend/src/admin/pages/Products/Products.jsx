@@ -23,7 +23,7 @@ const Products = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await axios.get("http://localhost:3000/api/products");
+      const res = await axios.get("https://heartfelt-nourishment-production-1ad0.up.railway.app/api/products");
       setProducts(res.data);
     };
 
@@ -36,7 +36,7 @@ const Products = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`http://localhost:3000/api/products/${id}`, {
+      await axios.delete(`https://heartfelt-nourishment-production-1ad0.up.railway.app/api/products/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

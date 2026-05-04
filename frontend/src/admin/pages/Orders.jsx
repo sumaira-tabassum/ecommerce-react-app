@@ -68,7 +68,7 @@ const Orders = () => {
   const updateStatus = async (id, status) => {
     try {
       setUpdatingOrderId(id);
-      const response = await axios.put(`http://localhost:3000/api/orders/${id}`, {
+      const response = await axios.put(`https://heartfelt-nourishment-production-1ad0.up.railway.app/api/orders/${id}`, {
         status
       });
 
@@ -87,7 +87,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("http://localhost:3000/api/orders");
+        const res = await axios.get("https://heartfelt-nourishment-production-1ad0.up.railway.app/api/orders");
         setOrders(res.data);
       } catch (error) {
         console.log(error);
