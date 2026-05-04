@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../../api/api";
 import {
   TextField,
   Button,
@@ -31,7 +31,7 @@ const EditProduct = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const res = await axios.get("http://localhost:3000/api/categories");
+      const res = await API.get("/categories");
       setCategories(res.data);
     };
 
@@ -40,8 +40,8 @@ const EditProduct = () => {
 
   useEffect(() => {
     const fetchProduct = async () => {
-      const res = await axios.get(
-        `http://localhost:3000/api/products/${id}`
+      const res = await API.get(
+        `/products/${id}`
       );
 
       setForm({
@@ -66,8 +66,8 @@ const EditProduct = () => {
       const formData = new FormData();
       formData.append("image", imageFile);
 
-      const uploadRes = await axios.post(
-        "http://localhost:3000/api/uploads",
+      const uploadRes = await API.post(
+        "/uploads",
         formData
       );
 
@@ -79,8 +79,8 @@ const EditProduct = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.put(
-        `http://localhost:3000/api/products/${id}`,
+      await API.put(
+        `/products/${id}`,
         {
           ...form,
           image: imageUrl,

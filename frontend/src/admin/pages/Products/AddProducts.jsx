@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import axios from "axios";
+import API from "../../../api/api";
 import {
   TextField,
   Button,
@@ -29,7 +28,7 @@ const AddProduct = () => {
 
   useEffect(() => {
     const fetchCategories = async () => {
-      const res = await axios.get("http://localhost:3000/api/categories");
+      const res = await API.get("/categories");
       setCategories(res.data);
     };
 
@@ -52,8 +51,8 @@ const AddProduct = () => {
         const formData = new FormData();
         formData.append("image", imageFile);
 
-        const uploadRes = await axios.post(
-          "http://localhost:3000/api/uploads",
+        const uploadRes = await API.post(
+          "/uploads",
           formData
         );
 
@@ -62,8 +61,8 @@ const AddProduct = () => {
         imageUrl = uploadRes.data.imageUrl;
       }
 
-      await axios.post(
-        "http://localhost:3000/api/products",
+      await API.post(
+        "/products",
         { ...form, image: imageUrl },
         {
           headers: {
@@ -218,7 +217,7 @@ const AddProduct = () => {
           onChange={handleChange}
           fullWidth
           sx={fieldStyles}
-          style={{marginTop: "18px"}}
+          style={{ marginTop: "18px" }}
         />
 
         <Box sx={{ gridColumn: "1 / -1" }}>

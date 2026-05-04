@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import API from "../../../api/api";
 import "./Products.css";
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
@@ -23,7 +23,7 @@ const Products = () => {
 
   useEffect(() => {
     const fetchProducts = async () => {
-      const res = await axios.get("https://heartfelt-nourishment-production-1ad0.up.railway.app/api/products");
+      const res = await API.get("/products");
       setProducts(res.data);
     };
 
@@ -36,7 +36,7 @@ const Products = () => {
     try {
       const token = localStorage.getItem("token");
 
-      await axios.delete(`https://heartfelt-nourishment-production-1ad0.up.railway.app/api/products/${id}`, {
+      await API.delete(`/products/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`
         }

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../api/api";
 import ProductCard from "../../components/ProductCard/ProductCard.jsx";
 import { useOutletContext } from "react-router-dom";
 import Loader from "../../components/Loader/Loader.jsx";
@@ -14,7 +14,7 @@ const ShopAll = () => {
       try {
         setLoading(true);
 
-        const res = await axios.get("https://heartfelt-nourishment-production-1ad0.up.railway.app/api/products");
+        const res = await API.get("/products");
         setProducts(res.data);
 
       } catch (error) {

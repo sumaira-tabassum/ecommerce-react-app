@@ -1,11 +1,9 @@
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../api/api";
 import "./ProductDetails.css"
 import { useOutletContext, useNavigate } from "react-router-dom";
 import Loader from "../../components/Loader/Loader";
-
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || "https://heartfelt-nourishment-production-1ad0.up.railway.app/api";
 
 const ProductDetails = () => {
     const { id } = useParams();
@@ -20,7 +18,7 @@ const ProductDetails = () => {
             try {
                 setLoading(true);
 
-                const res = await axios.get(`${API_BASE_URL}/products/${id}`);
+                const res = await API.get(`/products/${id}`);
                 setProduct(res.data);
             } catch (error) {
                 console.log(error);

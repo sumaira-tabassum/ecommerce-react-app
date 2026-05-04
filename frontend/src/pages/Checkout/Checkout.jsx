@@ -1,6 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../api/api";
 import "./Checkout.css";
 import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
@@ -127,7 +127,7 @@ const Checkout = () => {
                 }))
             };
 
-            const response = await axios.post("http://localhost:3000/api/orders", orderData);
+            const response = await API.post("/orders", orderData);
 
             setCart([]);
             resetCheckoutState();

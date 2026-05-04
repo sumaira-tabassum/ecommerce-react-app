@@ -1,7 +1,6 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://heartfelt-nourishment-production-1ad0.up.railway.app/api"
+  baseURL: import.meta.env.VITE_API_URL,
 });
-
 export default API;

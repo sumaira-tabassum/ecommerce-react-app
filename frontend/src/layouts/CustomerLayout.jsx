@@ -40,7 +40,7 @@ const CustomerLayout = () => {
         }))
       };
 
-      await axios.post("http://localhost:3000/api/orders", orderData);
+      await API.post("/orders", orderData);
 
       setCart([]);
       setCartOpen(false);

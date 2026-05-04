@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import API from "../../api/api";
 
 import {
   Table,
@@ -68,7 +68,7 @@ const Orders = () => {
   const updateStatus = async (id, status) => {
     try {
       setUpdatingOrderId(id);
-      const response = await axios.put(`https://heartfelt-nourishment-production-1ad0.up.railway.app/api/orders/${id}`, {
+      const response = await API.put(`/orders/${id}`, {
         status
       });
 
@@ -87,7 +87,7 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("https://heartfelt-nourishment-production-1ad0.up.railway.app/api/orders");
+        const res = await axios.get("/orders");
         setOrders(res.data);
       } catch (error) {
         console.log(error);
