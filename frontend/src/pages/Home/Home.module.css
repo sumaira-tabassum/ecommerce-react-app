@@ -135,6 +135,10 @@
   white-space: nowrap;
 }
 
+.shopLink {
+  text-decoration: none;
+}
+
 .shopBtn::after {
   content: "→";
   margin-left: 8px;

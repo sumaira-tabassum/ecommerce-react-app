@@ -68,7 +68,7 @@ function Home() {
             <div>
                 <div className={styles.productsHeader}>
                     <h2 className={styles.productsTitle}>New Arrivals</h2>
-                    <Link to="/shop">
+                    <Link to="/shop" className={styles.shopLink}>
                         <button className={styles.shopBtn}>
                             Shop All
                         </button>
