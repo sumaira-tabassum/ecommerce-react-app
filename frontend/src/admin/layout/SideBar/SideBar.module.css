@@ -1,5 +1,6 @@
 .drawer {
-  width: 240px;
+  width: 240px !important;
+  max-width: 80vw;
   background: #6A0610 !important;
   color: #fdf6f4;
   border-right: none !important;
@@ -7,10 +8,10 @@
 }
 
 .sidebarContent {
-  height: 100%;
+  min-height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: 14px;
   background: #6A0610;
 }
@@ -71,8 +72,8 @@
 }
 
 .bottomSection {
-  margin-top: auto;
-  padding: 14px;
+  margin-top: 18px;
+  padding: 14px 0 0 0;
   border-top: 1px solid rgba(255, 255, 255, 0.10);
 }
 
@@ -105,7 +106,7 @@
 .logoutButton {
   width: 100%;
   color: #fff !important;
-  padding: 11px 50px !important;
+  padding: 11px 18px !important;
   border-radius: 12px !important;
   background: rgba(255, 255, 255, 0.08) !important;
   border: 1px solid rgba(255,255,255,0.10);
@@ -131,33 +132,42 @@
 }
 
 @media screen and (max-width: 768px) {
+  .drawer {
+    width: 240px !important;
+    max-width: 78vw;
+  }
+
   .menuButton {
     display: flex !important;
     position: fixed !important;
     top: 14px;
     left: 14px;
     z-index: 1301 !important;
-    background: #6A0610 !important;
-    color: white !important;
-    width: 42px;
-    height: 42px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
+    background: transparent !important;
+    color: #6A0610 !important;
+    width: auto;
+    height: auto;
+    padding: 4px !important;
+    box-shadow: none !important;
+    border-radius: 0 !important;
   }
 
   .sidebarContent {
-    padding-top: 20px;
-    background: #6A0610;
+    padding: 14px;
+    min-height: 100%;
+    overflow-y: auto;
   }
 
   .list {
-    padding: 12px 8px;
+    padding: 8px 0;
   }
 
   .bottomSection {
-    padding: 10px;
+    margin-top: 16px;
+    padding-top: 12px;
   }
 
   .logoutButton {
-    padding: 11px 18px !important;
+    padding: 11px 16px !important;
   }
 }
