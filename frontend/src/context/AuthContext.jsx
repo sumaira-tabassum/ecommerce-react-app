@@ -36,7 +36,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-  const res = await axios.post("https://heartfelt-nourishment-production-1ad0.up.railway.app/auth/login", {
+  const res = await axios.post("https://heartfelt-nourishment-production-1ad0.up.railway.app/api/auth/login", {
     email,
     password
   });
