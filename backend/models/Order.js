@@ -11,7 +11,18 @@ const orderSchema = new mongoose.Schema({
         ref: "User",
         required: false
     },
-    guestInfo: {
+    billingInfo: {
+        name: { type: String, required: true },
+        email: { type: String, required: true },
+        phone: { type: String, required: true },
+        country: { type: String, required: true },
+        state: { type: String, required: true },
+        city: { type: String, required: true },
+        zipcode: { type: String },
+        address: { type: String, required: true },
+        note: { type: String }
+    },
+    shippingInfo: {
         name: { type: String, required: true },
         email: { type: String, required: true },
         phone: { type: String, required: true },
