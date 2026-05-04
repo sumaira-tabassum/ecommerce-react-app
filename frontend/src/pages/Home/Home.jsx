@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import API from "../../api/api.js";
 import heroImage from "../../assets/bg.JPG";
 import styles from "./Home.module.css";
 import ProductCard from "../../components/ProductCard/ProductCard.jsx";
