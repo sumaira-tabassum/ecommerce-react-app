@@ -2,14 +2,24 @@
     display: flex;
     justify-content: center;
     align-items: center;
+
     min-height: 40px;
     background-color: #311D1F;
+
     padding: 8px 12px;
     text-align: center;
+
+    /* width: 100%; */
 }
+
 .header p{
     color: white;
     margin: 0;
+
+    font-size: 14px;
+    line-height: 1.4;
+
+    max-width: 1200px;
 }
 
 @media screen and (max-width: 480px){
@@ -19,6 +29,11 @@
 
     .header p{
         font-size: 13px;
-        line-height: 1.4;
+    }
+}
+
+@media screen and (min-width: 1600px){
+    .header p{
+        font-size: 15px;
     }
 }

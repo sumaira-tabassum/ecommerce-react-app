@@ -47,23 +47,6 @@ const Orders = () => {
   const [updatingOrderId, setUpdatingOrderId] = useState(null);
   const statusOptions = ["pending", "processing", "in transit", "delivered", "cancelled"];
 
-  // const updateStatus = async (id, status) => {
-  //   try {
-  //     await axios.put(`http://localhost:3000/api/orders/${id}`, {
-  //       status
-  //     });
-
-  //     // update UI instantly
-  //     setOrders((prev) =>
-  //       prev.map((o) =>
-  //         o._id === id ? { ...o, status } : o
-  //       )
-  //     );
-  //   } catch (error) {
-  //     console.log(error);
-  //   }
-  // };
-
   const updateStatus = async (id, status) => {
     try {
       setUpdatingOrderId(id);
