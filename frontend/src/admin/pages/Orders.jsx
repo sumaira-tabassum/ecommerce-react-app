@@ -74,7 +74,7 @@ const Orders = () => {
 
       setOrders((prev) =>
         prev.map((o) =>
-          o._id === id ? { ...o, status: response.data.order.status } : o
+          o._id === id ? { ...o, status } : o
         )
       );
     } catch (error) {
@@ -87,8 +87,10 @@ const Orders = () => {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await axios.get("/orders");
-        setOrders(res.data);
+        const res = await axios.get(
+          `${import.meta.env.VITE_BASE_URL}/api/orders`
+        );
+        setOrders(Array.isArray(res.data) ? res.data : []);
       } catch (error) {
         console.log(error);
       }
@@ -203,23 +205,13 @@ const Orders = () => {
                       disabled={updatingOrderId === order._id}
                       displayEmpty
                       MenuProps={{
-                        slotProps: {
-                          list: {
-                            sx: {
-                              display: "flex",
-                              flexDirection: "column",
-                              // width: "30%"
-                            },
-                          },
-                        },
                         PaperProps: {
                           sx: {
                             "& .MuiMenuItem-root": {
-                              display: "block",
-                              // width: "30%"
-                            },
-                          },
-                        },
+                              display: "block"
+                            }
+                          }
+                        }
                       }}
                       sx={{
                         color: "#6A0610",

@@ -36,11 +36,16 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
+  console.log("login called with:", { email, password });
+
+  try {
     const res = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/login`, {
       name,
       email,
       password
     });
+
+    console.log("login response:", res.data);
 
     localStorage.setItem("token", res.data.token);
 
@@ -50,11 +55,19 @@ export const AuthProvider = ({ children }) => {
       }
     });
 
+    console.log("me response:", userRes.data);
+
     setUser(userRes.data);
     setLoading(false);
 
     return userRes.data;
-  };
+  } catch (error) {
+    console.error("login error:", error);
+    console.error("login error response:", error?.response?.data);
+    throw error;
+  }
+};
+
 
   const signup = async (name, email, password) => {
     await axios.post(`${import.meta.env.VITE_BASE_URL}/api/auth/signup`, {

@@ -8,6 +8,8 @@ import { useMediaQuery } from "@mui/material";
 import styles from "./SideBar.module.css";
 
 const Sidebar = () => {
+  const drawerWidth = 272;
+  const mobileDrawerWidth = 248;
   const location = useLocation();
   const navigate = useNavigate();
   const { logout, user } = useAuth();
@@ -25,6 +27,18 @@ const Sidebar = () => {
     }
   };
 
+  const navItemSx = {
+    width: "auto",
+    minWidth: "unset",
+    display: "inline-flex",
+    alignSelf: "flex-start",
+    flex: "0 0 auto",
+    justifyContent: "center",
+    "& .MuiListItemText-root": {
+      flex: "0 0 auto"
+    }
+  };
+
   const sidebarContent = (
     <Box className={styles.sidebarContent}>
       <List className={styles.list}>
@@ -33,6 +47,7 @@ const Sidebar = () => {
           to="/admin"
           onClick={handleCloseDrawer}
           className={`${styles.item} ${location.pathname === "/admin" ? styles.active : ""}`}
+          sx={navItemSx}
         >
           <ListItemText primary="Dashboard" />
         </ListItemButton>
@@ -42,6 +57,7 @@ const Sidebar = () => {
           to="/admin/products"
           onClick={handleCloseDrawer}
           className={`${styles.item} ${location.pathname.includes("/products") ? styles.active : ""}`}
+          sx={navItemSx}
         >
           <ListItemText primary="Products" />
         </ListItemButton>
@@ -51,6 +67,7 @@ const Sidebar = () => {
           to="/admin/orders"
           onClick={handleCloseDrawer}
           className={`${styles.item} ${location.pathname.includes("/orders") ? styles.active : ""}`}
+          sx={navItemSx}
         >
           <ListItemText primary="Orders" />
         </ListItemButton>
@@ -96,14 +113,39 @@ const Sidebar = () => {
       )}
 
       <Drawer
-        variant={isMobile ? "temporary" : "permanent"}
-        open={isMobile ? mobileOpen : true}
-        onClose={() => setMobileOpen(false)}
-        PaperProps={{ className: styles.drawer }}
-        ModalProps={{ keepMounted: true }}
-      >
-        {sidebarContent}
-      </Drawer>
+  variant={isMobile ? "temporary" : "permanent"}
+  open={isMobile ? mobileOpen : true}
+  onClose={() => setMobileOpen(false)}
+  className={styles.drawerRoot}
+  sx={{
+    width: isMobile ? mobileDrawerWidth : drawerWidth,
+    flexShrink: 0,
+    "& .MuiDrawer-paper": {
+      width: isMobile ? mobileDrawerWidth : drawerWidth,
+      boxSizing: "border-box",
+      display: "flex",
+      flexDirection: "column",
+    }
+  }}
+  slotProps={{
+    paper: {
+      className: styles.drawer,
+      sx: {
+        overflowY: "auto",
+        overflowX: "hidden",
+        scrollbarWidth: "none",
+        msOverflowStyle: "none",
+        "&::-webkit-scrollbar": {
+          display: "none"
+        }
+      }
+    }
+  }}
+  ModalProps={{ keepMounted: true }}
+>
+  {sidebarContent}
+</Drawer>
+
     </>
   );
 };

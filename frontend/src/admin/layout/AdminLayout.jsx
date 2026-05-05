@@ -11,8 +11,9 @@ const AdminLayout = () => {
 
       <div
         style={{
-          marginLeft: isMobile ? 0 : 240,
           width: "100%",
+          flex: 1,
+          minWidth: 0,
           paddingTop: isMobile ? 70 : 0
         }}
       >

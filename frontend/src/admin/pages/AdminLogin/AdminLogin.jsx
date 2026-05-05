@@ -39,9 +39,12 @@ const handleSubmit = async (e) => {
     }
 
     navigate("/admin");
-  } catch (err) {
-    setError("Invalid admin credentials");
-  }
+ } catch (err) {
+  console.error("Admin login failed:", err);
+  console.error("Admin login response:", err?.response?.data);
+  setError(err?.response?.data?.message || err?.message || "Invalid admin credentials");
+}
+
 };
 
 
