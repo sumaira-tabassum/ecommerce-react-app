@@ -1,113 +1,113 @@
-.hero{
-   width: 100%;
-    min-height: 600px;
-    background-size: cover;
-    background-position: center;
-    position: relative;
-    display: flex;
-    align-items: flex-start;
+.hero {
+  width: 100%;
+  min-height: 600px;
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  display: flex;
+  align-items: flex-start;
 
-    max-width: 100%;
-    overflow: hidden;
+  max-width: 100%;
+  overflow: hidden;
 }
 
-.heroText{
-    padding: 90px 60px;
-    color: #6A0610;
-    font-size: xx-large;
-    font-weight: 900;
-    width: 100%;
+.heroText {
+  padding: 90px 60px;
+  color: #6A0610;
+  font-size: xx-large;
+  font-weight: 900;
+  width: 100%;
 }
 
-.heroText p{
-    margin: 0;
+.heroText p {
+  margin: 0;
 }
 
-.heroButton{
-    padding: 10px 15px;
-    background-color: #6A0610;
-    color: white;
-    border: none;
-    border-radius: 8px;
-    font-size: medium;
-    margin-top: 20px;
-    cursor: pointer;
+.heroButton {
+  padding: 10px 15px;
+  background-color: #6A0610;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: medium;
+  margin-top: 20px;
+  cursor: pointer;
 }
 
-.heroButton:hover{
-    text-decoration: underline;
+.heroButton:hover {
+  text-decoration: underline;
 }
 
-.heroTitle{
-    color: white;
-    position: absolute;
-    font-size: 180px;
-    bottom: 40px;
-    left: 60px;
-    margin: 0;
-    line-height: 0.9;
+.heroTitle {
+  color: white;
+  position: absolute;
+  font-size: 180px;
+  bottom: 40px;
+  left: 60px;
+  margin: 0;
+  line-height: 0.9;
 }
 
-.productCards{
-    display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+.productCards {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
 
-    grid-template-rows: repeat(2, minmax(0, 1fr));
+  grid-template-rows: repeat(2, minmax(0, 1fr));
 
-    gap: 40px;
-    padding: 40px;
+  gap: 40px;
+  padding: 40px;
 
-    max-width: 1400px;
-    margin: 0 auto;
+  max-width: 1400px;
+  margin: 0 auto;
 
-    align-items: stretch;
+  align-items: stretch;
 }
 
-.productCards > :first-child{
-    grid-row: 1 / 3;
+.productCards> :first-child {
+  grid-row: 1 / 3;
 
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 
-    min-height: 0;
-    overflow: hidden;
+  min-height: 0;
+  overflow: hidden;
 }
 
-.productCards > :first-child img{
-    width: 100%;
-    height: 100%;
+.productCards> :first-child img {
+  width: 100%;
+  height: 100%;
 
-    flex: 1;
-    object-fit: cover;
+  flex: 1;
+  object-fit: cover;
 
-    display: block;
+  display: block;
 }
 
-.productCards > *{
-    min-height: 0;
+.productCards>* {
+  min-height: 0;
 }
 
-.testimonial{
-    background-color: #6A0610;
-    min-height: 280px;
-    color: #6A0610;
-    text-align: center;
-    font-size:40px;
-    padding: 50px 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+.testimonial {
+  background-color: #6A0610;
+  min-height: 280px;
+  color: #6A0610;
+  text-align: center;
+  font-size: 40px;
+  padding: 50px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.testimonialQuote{
-    -webkit-text-stroke: 1px #f4bfbf;
-    margin: 0;
+.testimonialQuote {
+  -webkit-text-stroke: 1px #f4bfbf;
+  margin: 0;
 }
 
-.testimonialAuthor{
-    margin-top: 40px;
-    color: #f4bfbf;
-    font-size: large;
+.testimonialAuthor {
+  margin-top: 40px;
+  color: #f4bfbf;
+  font-size: large;
 }
 
 .productsHeader {
@@ -175,65 +175,65 @@
   transform: translateX(4px);
 }
 
-.yourGlow{
+.yourGlow {
   display: flex;
   gap: 5px;
 }
 
 @media screen and (min-width: 1600px) {
-  .heroText{
+  .heroText {
     padding: 110px 120px;
     font-size: 42px;
   }
 
-  .heroTitle{
+  .heroTitle {
     font-size: 210px;
     left: 120px;
   }
 
-  .productCards{
+  .productCards {
     max-width: 1500px;
     gap: 50px;
   }
 }
 
 @media screen and (max-width: 1200px) {
-  .hero{
+  .hero {
     min-height: 520px;
   }
 
-  .heroText{
+  .heroText {
     padding: 70px 40px;
     font-size: 34px;
   }
 
-  .heroTitle{
+  .heroTitle {
     font-size: 130px;
     left: 40px;
   }
 
-  .productCards{
+  .productCards {
     grid-template-columns: 1.5fr 1fr 1fr;
     gap: 25px;
     padding: 30px 40px 40px 40px;
   }
 
-  .testimonial{
+  .testimonial {
     font-size: 32px;
   }
 }
 
 @media screen and (max-width: 992px) {
-  .hero{
+  .hero {
     min-height: 460px;
   }
 
-  .heroText{
+  .heroText {
     padding: 60px 30px;
     font-size: 28px;
   }
 
-  .heroTitle{
+  .heroTitle {
     font-size: 95px;
     left: 30px;
   }
@@ -242,36 +242,36 @@
     padding: 30px 30px 0 30px;
   }
 
-  .productCards{
+  .productCards {
     grid-template-columns: 1fr 1fr;
     grid-template-rows: auto;
     gap: 25px;
     padding: 30px;
   }
 
-  .productCards > :first-child {
+  .productCards> :first-child {
     grid-row: auto;
     grid-column: 1 / -1;
     max-height: 420px;
   }
 
-  .testimonial{
+  .testimonial {
     min-height: 240px;
     font-size: 28px;
   }
 }
 
 @media screen and (max-width: 768px) {
-  .hero{
+  .hero {
     min-height: 420px;
   }
 
-  .heroText{
+  .heroText {
     padding: 50px 20px;
     font-size: 22px;
   }
 
-  .heroTitle{
+  .heroTitle {
     font-size: 68px;
     left: 20px;
     bottom: 20px;
@@ -283,17 +283,47 @@
     padding: 25px 20px 0 20px;
   }
 
-  .productCards{
+  .productCards {
     grid-template-columns: 1fr;
     gap: 20px;
     padding: 25px 20px 30px 20px;
   }
 
-  .productCards > :first-child {
-    max-height: 300px;
+   .productCards > :first-child{
+    grid-column: auto;
+    grid-row: auto;
+
+    display: flex;
+    flex-direction: column;
+
+    height: auto;
+    max-height: none;
+    overflow: visible;
   }
 
-  .testimonial{
+   .productCards > :first-child img{
+    height: 240px;
+    width: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+   .productCards .card{
+    overflow: visible;
+  }
+
+  .productCards .cardName,
+  .productCards .cardPrice{
+    display: block;
+  }
+  
+  .productCards> :first-child h3,
+  .productCards> :first-child p {
+    display: block;
+    padding: 0 5px;
+  }
+
+  .testimonial {
     min-height: 220px;
     font-size: 22px;
     padding: 40px 18px;
