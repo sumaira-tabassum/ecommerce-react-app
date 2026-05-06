@@ -1,5 +1,5 @@
 import styles from "./Dashboard.module.css";
-import dashboardImg from "../../../assets/bg.jpg";
+import dashboardImg from "../../../assets/AllProductsImage.jpg";
 
 const Dashboard = () => {
   return (
