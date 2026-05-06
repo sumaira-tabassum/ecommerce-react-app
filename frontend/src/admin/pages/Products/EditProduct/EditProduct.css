@@ -1,0 +1,117 @@
+.editContainer {
+  min-height: 100vh;
+  background: white;
+  padding: 28px;
+}
+
+.editTitle {
+  color: #6A0610 !important;
+  font-weight: 600 !important;
+  font-size: 25px !important;
+  margin-bottom: 20px !important;
+}
+
+.editForm {
+  max-width: 920px;
+  background: #fffdf8;
+  border: 1px solid #eadfdb;
+  border-radius: 10px;
+  padding: 24px;
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.field .MuiOutlinedInput-root {
+  background: #fffdf8;
+  border-radius: 6px;
+}
+
+.field .MuiOutlinedInput-notchedOutline {
+  border-color: #d9c9c5;
+}
+
+.field:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #6A0610;
+}
+
+.field.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #6A0610;
+}
+
+.field .MuiInputLabel-root {
+  color: #6A0610;
+}
+
+.field .MuiInputLabel-root.Mui-focused {
+  color: #6A0610;
+}
+
+.field .MuiInputBase-input {
+  color: #6A0610;
+}
+
+/* FILE INPUT */
+.fileBox {
+  display: flex;
+  flex-direction: column;
+}
+
+.fileLabel {
+  color: #6A0610 !important;
+  font-size: 13px !important;
+  margin-bottom: 6px !important;
+}
+
+.fileInputBox {
+  border: 1px solid #d9c9c5;
+  border-radius: 6px;
+  padding: 10px 12px;
+  background: #fffdf8;
+  color: #6A0610;
+}
+
+.btnRow {
+  grid-column: 1 / -1;
+  margin-top: 6px;
+}
+
+.submitBtn {
+  background: #6A0610 !important;
+  color: white !important;
+  text-transform: none !important;
+  border-radius: 6px !important;
+  padding: 10px 18px !important;
+}
+
+.submitBtn:hover {
+  background: #4f040c !important;
+}
+
+.fullRow {
+  grid-column: 1 / -1;
+}
+
+@media (max-width: 768px) {
+
+  .editContainer {
+    padding: 18px;
+  }
+
+  .editForm {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .editContainer {
+    padding: 14px;
+  }
+
+  .editTitle {
+    font-size: 20px !important;
+  }
+}

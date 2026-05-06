@@ -1,0 +1,159 @@
+.ordersContainer {
+  padding: 28px;
+  background: white;
+  min-height: 100vh;
+  font-family: Instrument Sans;
+}
+
+/* TITLE */
+.ordersTitle {
+  color: #6A0610 !important;
+  font-weight: 600 !important;
+  margin-bottom: 20px !important;
+  letter-spacing: 0.2px !important;
+  font-size: 25px !important;
+}
+
+/* TABLE CARD */
+.ordersTableCard {
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  border: 1px solid #eadfdb !important;
+  background-color: #fffdf8 !important;
+  overflow: hidden !important;
+}
+
+/* HEADER ROW */
+.ordersHeadRow {
+  background-color: #fff1f0 !important;
+}
+
+.ordersHeadRow th {
+  color: #6A0610 !important;
+  font-weight: 600 !important;
+}
+
+/* ROW */
+.ordersRow:hover {
+  background-color: #fff1f0 !important;
+}
+
+/* CELLS */
+.orderCell {
+  font-size: 13px !important;
+  color: #6A0610 !important;
+  border-color: #eadfdb !important;
+}
+
+.orderCell.bold {
+  font-weight: 600 !important;
+}
+
+.orderItems {
+  color: #6A0610 !important;
+  vertical-align: top !important;
+}
+
+.orderItemText {
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+/* STATUS CELL */
+.statusCell {
+  width: 170px;
+  vertical-align: top !important;
+}
+
+/* SELECT */
+.statusSelect {
+  border-radius: 8px !important;
+  font-size: 13px !important;
+  min-height: 36px !important;
+}
+
+.statusSelect .MuiSelect-select {
+  padding: 8px 28px 8px 12px !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+.statusSelect .MuiOutlinedInput-notchedOutline {
+  border-color: #d9c9c5 !important;
+}
+
+.statusSelect:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #6A0610 !important;
+}
+
+.statusSelect.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #6A0610 !important;
+}
+
+/* STATUS COLORS */
+.pending {
+  color: #9a5b00 !important;
+}
+
+.processing {
+  color: #1d4ed8 !important;
+}
+
+.in-transit {
+  color: #6d28d9 !important;
+}
+
+.delivered {
+  color: #1f7a1f !important;
+}
+
+.cancelled {
+  color: #b42318 !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .ordersContainer {
+    padding: 22px;
+  }
+
+  .statusCell {
+    width: 150px;
+  }
+}
+
+@media (max-width: 768px) {
+  .ordersContainer {
+    padding: 18px;
+  }
+
+  .ordersTitle {
+    font-size: 22px !important;
+  }
+
+  .orderCell {
+    font-size: 12px !important;
+  }
+
+  .orderItemText {
+    font-size: 12px;
+  }
+
+  .statusCell {
+    width: 140px;
+  }
+}
+
+@media (max-width: 480px) {
+  .ordersContainer {
+    padding: 14px;
+  }
+
+  .statusCell {
+    width: 120px;
+  }
+
+  .ordersTitle {
+    font-size: 20px !important;
+  }
+}

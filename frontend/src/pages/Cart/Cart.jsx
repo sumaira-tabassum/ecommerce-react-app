@@ -62,7 +62,7 @@ const Cart = () => {
 
                             <div className="cart-info">
                                 <p className="cart-product-name">{item.product.name}</p>
-                                <p className="cart-product-price">Rs {item.product.price}</p>
+                                {/* <p className="cart-product-price">Rs {item.product.price}</p> */}
 
                                 <div className="cart-row-bottom">
                                     <div className="qty">

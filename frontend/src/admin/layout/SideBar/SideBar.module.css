@@ -1,18 +1,28 @@
+@import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Epilogue:ital,wght@0,100..900;1,100..900&family=Instrument+Sans:ital,wght@0,400..700;1,400..700&family=Manrope:wght@200..800&family=Martel+Sans:wght@600&family=Newsreader:ital,opsz,wght@0,6..72,200..800;1,6..72,200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap');
+
+.logo{
+  font-size: 40px;
+  color: #fff;
+  font-weight: 900;
+}
+
 .drawerRoot {
   flex-shrink: 0;
 }
 
 .drawer {
-  width: 272px !important;
+  width: 240px !important;
   max-width: 78vw;
-  background: #6A0610 !important;
-  color: #fdf6f4;
+  background: linear-gradient(180deg, #6A0610 0%, #6A0610 100%) !important;
+  background-color: #e9b3b1;
+  color: #FFFAED;
   border-right: none !important;
-  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 8px 0 24px rgba(49, 29, 31, 0.26);
   overflow-y: auto !important;
   overflow-x: hidden !important;
   scrollbar-width: none;
   -ms-overflow-style: none;
+  font-family: Instrument Sans;
 }
 
 .drawer::-webkit-scrollbar {
@@ -26,53 +36,96 @@
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  align-items: center;
+  align-items: stretch;
   padding: 14px;
   overflow: hidden;
-  background: #6A0610;
+  background: transparent;
+  gap: 10px;
+}
+
+.sidebarCollapsed .item,
+.sidebarCollapsed .logoutButton {
+  justify-content: center;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+}
+
+.sidebarCollapsed .itemIcon {
+  min-width: unset !important;
+  margin: 0 !important;
+}
+
+.logoWrap {
+  width: 100%;
+  padding: 8px 8px 14px;
+  border-bottom: 1px solid rgba(255, 250, 237, 0.18);
+}
+
+.sidebarCollapsed .logoWrap {
+  padding: 8px 4px 12px;
+}
+
+.logoTitle {
+  margin: 0 !important;
+  font-size: 38px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  color: #f4bfbf;
+  text-shadow: 0 0 8px rgba(244, 191, 191, 0.6);
+}
+
+.sidebarCollapsed .logoTitle {
+  text-align: center;
+  font-size: 24px !important;
+}
+
+.logoSubTitle {
+  margin-top: 10px !important;
+  font-size: 12px !important;
+  color: #fff;
+  letter-spacing: 0.35px;
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
-  margin: 0;
-  padding: 18px 10px;
-  gap: 8px;
+  width: 100%;
+  padding: 12px 0;
+  gap: 4px;
+
+  flex-grow: 0;  
 }
 
 .item {
-  color: rgba(255,255,255,0.78) !important;
+  width: 100% !important;
   margin: 0 !important;
-  width: fit-content !important;
-  min-width: 148px;
-  max-width: 172px;
-  padding: 10px 14px !important;
-  border-radius: 12px !important;
-  transition: all 0.25s ease;
-  position: relative;
-  overflow: hidden;
-  align-self: flex-start;
-  text-align: center;
+  padding: 12px 16px !important;
+  border-radius: 10px !important;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 12px;
+
+  color: rgba(255, 250, 237, 0.85) !important;
+  transition: all 0.2s ease;
+
+  height: auto;
+}
+.itemIcon {
+  min-width: 32px !important;
+  color: white;
 }
 
 .item:hover {
-  background: rgba(255, 255, 255, 0.08) !important;
-  color: #fff !important;
-  transform: translateX(2px);
+  background: rgba(244, 191, 191, 0.18) !important;
 }
 
 .active {
-  background: rgba(255,255,255,0.12) !important;
-  color: #ffffff !important;
+  background: rgba(244, 191, 191, 0.25) !important;
   font-weight: 600 !important;
-  box-shadow:
-    inset 0 0 0 1px rgba(255,255,255,0.12),
-    0 6px 14px rgba(0,0,0,0.15);
-  position: relative;
 }
 
-.active::before {
+/* .active::before {
   content: "";
   position: absolute;
   left: 0;
@@ -80,9 +133,9 @@
   bottom: 18%;
   width: 3px;
   border-radius: 10px;
-  background: #ffffff;
+  background: #FFFAED;
   opacity: 0.9;
-}
+} */
 
 .item :global(.MuiListItemText-primary) {
   font-size: 15px;
@@ -97,7 +150,7 @@
 .bottomSection {
   margin-top: auto;
   padding: 14px 0 0 0;
-  border-top: 1px solid rgba(255, 255, 255, 0.10);
+  border-top: 1px solid rgba(255, 250, 237, 0.18);
 }
 
 .profileBox {
@@ -127,23 +180,22 @@
 }
 
 .logoutButton {
-  width: fit-content !important;
-  min-width: 148px;
-  color: #fff !important;
-  padding: 11px 70px !important;
-  border-radius: 12px !important;
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255,255,255,0.10);
+  width: 100% !important;
+  padding: 12px 16px !important;
+  border-radius: 10px !important;
+
   display: flex;
   align-items: center;
-  gap: 8px;
-  transition: all 0.25s ease !important;
+  gap: 12px;
+
+  color: #FFFAED !important;
+  /* background: rgba(244, 191, 191, 0.18) !important; */
 }
 
 .logoutButton:hover {
-  background: rgba(255, 255, 255, 0.14) !important;
+  background: rgba(244, 191, 191, 0.18) !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+  box-shadow: 0 8px 18px rgba(49, 29, 31, 0.26);
 }
 
 .logoutIcon {
@@ -151,52 +203,87 @@
   opacity: 0.95;
 }
 
-.menuButton {
-  display: none !important;
+@media screen and (max-width: 1024px) {
+  .logoTitle {
+    font-size: 32px !important;
+  }
+
+  .item {
+    padding: 11px 14px !important;
+  }
+
+  .logoutButton {
+    padding: 11px 14px !important;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .sidebarContent {
+    gap: 8px;
+    padding: 12px;
+  }
+
+  .logoTitle {
+    font-size: 28px !important;
+  }
+
+  .item {
+    padding: 10px 12px !important;
+  }
+
+  .item :global(.MuiListItemText-primary) {
+    font-size: 14px;
+  }
 }
 
 @media screen and (max-width: 768px) {
-  .drawer {
-    width: 248px !important;
-    max-width: 78vw;
-  }
 
-  .menuButton {
-    display: flex !important;
-    position: fixed !important;
-    top: 14px;
-    left: 14px;
-    z-index: 1301 !important;
-    background: transparent !important;
-    color: #6A0610 !important;
-    width: auto;
-    height: auto;
-    padding: 4px !important;
-    box-shadow: none !important;
-    border-radius: 0 !important;
+  .drawer {
+    width: 100vw !important;
+    /* max-width: 85vw; */
   }
 
   .sidebarContent {
-    padding: 14px;
-    min-height: 100%;
+    padding: 12px;
+    gap: 8px;
   }
 
-  .list {
-    padding: 8px 0;
+  .logoTitle {
+    font-size: 26px !important;
   }
 
-  .item,
+  .logoSubTitle {
+    font-size: 11px !important;
+  }
+
+  .item {
+    padding: 10px 12px !important;
+    border-radius: 10px !important;
+  }
+
+  .item :global(.MuiListItemText-primary) {
+    font-size: 13px;
+  }
+
   .logoutButton {
-    min-width: 142px;
-    max-width: 166px;
+    padding: 10px 12px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .drawer {
+    width: 100vw!important;
   }
 
-  .bottomSection {
-    margin-top: auto;
-    padding-top: 12px;
+  .logoTitle {
+    font-size: 24px !important;
   }
 
-  .logoutButton {
-    padding: 11px 16px !important;
+  .item {
+    padding: 9px 10px !important;
+  }
+
+  .itemIcon {
+    min-width: 28px !important;
   }
 }

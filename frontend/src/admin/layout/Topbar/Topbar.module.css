@@ -1,0 +1,173 @@
+.appbar {
+  background: #fff1f0 !important;
+  color: #311D1F !important;
+  box-shadow: 0 6px 18px rgba(49, 29, 31, 0.08) !important;
+}
+
+.toolbar {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 20px !important;
+}
+
+.menuBtn {
+  background: #fff !important;
+  color: #6A0610 !important;
+  box-shadow: 0 6px 16px rgba(49, 29, 31, 0.12);
+}
+
+.menuBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(49, 29, 31, 0.16);
+}
+
+.rightSection {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.notifyBtn {
+  background: #fff !important;
+  box-shadow: 
+    0 6px 16px rgba(49, 29, 31, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  color: #6A0610 !important;
+  transition: all 0.25s ease;
+}
+
+.notifyBtn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(49, 29, 31, 0.16);
+}
+
+.badge .MuiBadge-badge {
+  background: #6A0610;
+}
+
+.divider {
+  width: 1px;
+  height: 28px;
+  background: rgba(49, 29, 31, 0.15);
+}
+
+.profileBox {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  padding: 6px 12px;
+  border-radius: 12px;
+
+  background: #fff;
+  box-shadow: 
+    0 6px 16px rgba(49, 29, 31, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+
+  transition: all 0.25s ease;
+}
+
+.profileBox:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 22px rgba(49, 29, 31, 0.16);
+}
+
+.avatar {
+  width: 34px !important;
+  height: 34px !important;
+  background: #6A0610 !important;
+  color: #FFFAED !important;
+  font-size: 14px !important;
+  font-weight: 700 !important;
+}
+
+.adminName {
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  color: #311D1F;
+}
+
+@media screen and (max-width: 1024px) {
+  .toolbar {
+    padding: 0 16px !important;
+  }
+
+  .rightSection {
+    gap: 12px;
+  }
+
+  .profileBox {
+    padding: 6px 10px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .toolbar {
+    padding: 0 14px !important;
+  }
+
+  .adminName {
+    font-size: 12px !important;
+  }
+
+  .avatar {
+    width: 32px !important;
+    height: 32px !important;
+  }
+
+  .divider {
+    height: 24px;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .toolbar {
+    padding: 0 12px !important;
+  }
+
+  .rightSection {
+    gap: 10px;
+  }
+
+  .adminName {
+    display: none !important; /* clean mobile UI */
+  }
+
+  .profileBox {
+    padding: 6px 8px;
+    gap: 8px;
+  }
+
+  .avatar {
+    width: 30px !important;
+    height: 30px !important;
+    font-size: 12px !important;
+  }
+
+  .notifyBtn {
+    padding: 6px !important;
+  }
+}
+
+@media screen and (max-width: 480px) {
+  .toolbar {
+    padding: 0 10px !important;
+  }
+
+  .rightSection {
+    gap: 8px;
+  }
+
+  .divider {
+    height: 20px;
+  }
+
+  .profileBox {
+    padding: 5px 7px;
+  }
+
+  .avatar {
+    width: 28px !important;
+    height: 28px !important;
+  }
+}

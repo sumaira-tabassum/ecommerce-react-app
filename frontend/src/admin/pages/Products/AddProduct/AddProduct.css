@@ -1,0 +1,131 @@
+.addProductContainer {
+  min-height: 100vh;
+  background: white;
+  padding: 28px;
+  font-family: Instrument Sans;
+}
+
+/* TITLE */
+.addProductTitle {
+  color: #6A0610 !important;
+  font-weight: 600 !important;
+  margin-bottom: 20px !important;
+  font-size: 25px !important;
+}
+
+/* FORM CARD */
+.addProductForm {
+  max-width: 920px;
+  width: 100%;
+  border: 1px solid #eadfdb;
+  background: #fffdf8;
+  border-radius: 10px;
+  padding: 24px;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+/* INPUT FIELD */
+.field .MuiOutlinedInput-root {
+  background: #fffdf8;
+  border-radius: 6px;
+}
+
+.field .MuiOutlinedInput-notchedOutline {
+  border-color: #d9c9c5;
+}
+
+.field:hover .MuiOutlinedInput-notchedOutline {
+  border-color: #6A0610;
+}
+
+.field.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #6A0610;
+}
+
+.field .MuiInputLabel-root {
+  color: #6A0610;
+}
+
+.field .MuiInputBase-input {
+  color: #6A0610;
+}
+
+/* FILE UPLOAD */
+.fileBox {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fileLabel {
+  font-size: 13px;
+  color: #6A0610;
+}
+
+.fileBox input {
+  border: 1px solid #d9c9c5;
+  padding: 10px;
+  border-radius: 6px;
+  background: #fffdf8;
+  color: #6A0610;
+}
+
+/* FULL ROW ELEMENTS */
+.fullRow {
+  grid-column: 1 / -1;
+}
+
+/* BUTTON */
+.buttonRow {
+  grid-column: 1 / -1;
+}
+
+.submitBtn {
+  background: #6A0610 !important;
+  color: white !important;
+  text-transform: none !important;
+  border-radius: 6px !important;
+  padding: 10px 18px !important;
+}
+
+.submitBtn:hover {
+  background: #4f040c !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 1024px) {
+  .addProductContainer {
+    padding: 22px;
+  }
+
+  .addProductForm {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .addProductContainer {
+    padding: 18px;
+  }
+
+  .addProductForm {
+    grid-template-columns: 1fr;
+    padding: 18px;
+  }
+
+  .addProductTitle {
+    font-size: 22px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .addProductContainer {
+    padding: 14px;
+  }
+
+  .addProductTitle {
+    font-size: 20px !important;
+  }
+}

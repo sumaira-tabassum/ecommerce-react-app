@@ -11,11 +11,11 @@ import AdminLayout from "./admin/layout/AdminLayout.jsx";
 import Dashboard from "./admin/pages/Dashboard/Dashboard.jsx";
 import CustomerLayout from "./layouts/CustomerLayout.jsx";
 import Products from "./admin/pages/Products/Products.jsx";
-import AddProducts from "./admin/pages/Products/AddProducts.jsx";
-import EditProduct from "./admin/pages/Products/EditProduct.jsx";
+import AddProducts from "./admin/pages/Products/AddProduct/AddProducts.jsx";
+import EditProduct from "./admin/pages/Products/EditProduct/EditProduct.jsx";
 import CartSidebar from "./components/CartSidebar/CartSidebar.jsx"
 import Checkout from "./pages/Checkout/Checkout.jsx"
-import Orders from "./admin/pages/Orders.jsx";
+import Orders from "./admin/pages/Orders/Orders.jsx";
 import ProtectedRoute from "./routes/ProtectedRoute.jsx";
 import AdminRoute from "./routes/AdminRoute.jsx";
 import Login from "./pages/Auth/Login.jsx";

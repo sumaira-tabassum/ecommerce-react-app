@@ -1,3 +1,134 @@
-.MuiTableRow-root:hover {
-  background-color: rgba(106, 6, 16, 0.04);
+.productsContainer {
+  padding: 28px;
+  background: white;
+  min-height: 100vh;
+}
+
+/* HEADER */
+.productsHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 12px;
+}
+
+.productsTitle {
+  color: #6A0610 !important;
+  font-weight: 600 !important;
+  font-size: 25px !important;
+}
+
+.addLink {
+  text-decoration: none;
+}
+
+.addBtn {
+  background: #6A0610 !important;
+  color: white !important;
+  text-transform: none !important;
+  border-radius: 8px !important;
+  padding: 10px 16px !important;
+}
+
+.addBtn:hover {
+  background: #4f040c !important;
+}
+
+/* TABLE */
+.tableContainer {
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  border: 1px solid #eadfdb !important;
+  background: #fffdf8 !important;
+  overflow: hidden;
+}
+
+/* HEADER ROW */
+.tableHeadRow {
+  background: #fff1f0;
+}
+
+.tableHeadRow th {
+  color: #6A0610 !important;
+  font-weight: 600 !important;
+}
+
+/* ROW */
+.tableRow:hover {
+  background: #fff1f0 !important;
+}
+
+/* IMAGE */
+.productImg {
+  width: 52px;
+  height: 52px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* ACTION ICONS */
+.actionsCell {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.editIcon {
+  color: #6A0610;
+  cursor: pointer;
+}
+
+.deleteIcon {
+  color: #b42318;
+  cursor: pointer;
+}
+
+/* =====================
+   RESPONSIVE
+   ===================== */
+
+@media (max-width: 768px) {
+
+  .productsContainer {
+    padding: 18px;
+  }
+
+  .productsHeader {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .productsTitle {
+    font-size: 20px !important;
+  }
+
+  .productImg {
+    width: 42px;
+    height: 42px;
+  }
+
+  .tableContainer {
+    overflow-x: auto;
+  }
+}
+
+@media (max-width: 480px) {
+
+  .productsContainer {
+    padding: 14px;
+  }
+
+  .productsTitle {
+    font-size: 18px !important;
+  }
+
+  .productImg {
+    width: 36px;
+    height: 36px;
+  }
+
+  .actionsCell {
+    gap: 6px;
+  }
 }
