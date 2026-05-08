@@ -6,6 +6,12 @@ import connectCloudinary from "./config/cloudinary.js";
 import cors from "cors";
 dotenv.config();
 
+dotenv.config();
+
+if (!process.env.JWT_SECRET) {
+  throw new Error("JWT_SECRET is not defined in environment variables");
+}
+
 const app = express();
 app.use(cors());
 app.use(express.json());
