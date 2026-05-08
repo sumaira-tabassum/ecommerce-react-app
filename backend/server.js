@@ -38,6 +38,13 @@ app.use("/api/orders", orderRoutes);
 import userRoutes from "./routes/userRoutes.js";
 app.use("/api/auth", userRoutes);
 
+app.get("/health", (req, res) => {
+  res.status(200).json({
+    status: "OK",
+    message: "Server is running"
+  });
+});
+
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
