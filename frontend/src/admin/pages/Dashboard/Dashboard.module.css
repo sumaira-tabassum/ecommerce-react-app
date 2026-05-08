@@ -267,7 +267,7 @@
 }
 
 .imageCard {
-  position: relative; /* 🔥 required */
+  position: relative;
   border-radius: 14px;
   overflow: hidden;
   box-shadow: 0 12px 30px rgba(49, 29, 31, 0.12);
