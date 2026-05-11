@@ -20,7 +20,7 @@ connectDB();
 seedAdmin();
 connectCloudinary();
 app.get("/", (req, res) => {
-  res.send("API is running");
+  res.send("Sumaira (Shagufta) ki API is running");
 });
 
 import productRoutes from "./routes/productRoutes.js";
