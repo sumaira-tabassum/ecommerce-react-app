@@ -5,7 +5,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "echo No unit tests configured for this package.",
     "start": "node server.js",
     "lint": "eslint ."
   },
