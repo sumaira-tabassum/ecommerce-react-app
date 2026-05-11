@@ -1,7 +1,6 @@
 import express from "express";
-import {getStats} from "../controller/statsController.js";
-import authMiddleware from "../middleware/authMiddleware.js";
-import adminMiddleware from "../middleware/adminMiddleware.js";
+import { getStats } from "../controllers/statsController.js";
+
 const router = express.Router();
 
 router.get("/stats", getStats);
