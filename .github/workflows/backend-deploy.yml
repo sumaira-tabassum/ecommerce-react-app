@@ -74,6 +74,9 @@ jobs:
 
       # =========================
       # DEPLOY TO EC2
+      # The image excludes .env (see backend/.dockerignore). Runtime config must be injected here.
+      # On the EC2 host, keep a real .env at: $HOME/ecommerce-react-app/backend/.env
+      # (same keys as backend/.env.example). Optional GitHub secret EC2_BACKEND_ENV_FILE overrides the path.
       # =========================
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
@@ -92,10 +95,19 @@ jobs:
 
             sudo docker pull ${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
 
+            ENV_FILE="${{ secrets.EC2_BACKEND_ENV_FILE }}"
+            if [ -z "$ENV_FILE" ]; then ENV_FILE="$HOME/ecommerce-react-app/backend/.env"; fi
+            if [ ! -f "$ENV_FILE" ]; then
+              echo "Missing env file: $ENV_FILE" >&2
+              echo "Create it on EC2 with JWT_SECRET, MONGO_URI, CLOUD_*, EMAILJS_*, etc. (see backend/.env.example)." >&2
+              exit 1
+            fi
+
             sudo docker run -d \
               --name backend-container \
               -p 80:3000 \
               --restart always \
+              --env-file "$ENV_FILE" \
               ${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
 
       # =========================
