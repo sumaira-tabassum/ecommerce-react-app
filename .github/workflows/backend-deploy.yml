@@ -99,7 +99,7 @@ jobs:
               ${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
 
       # =========================
-      # HEALTH CHECK (via SSH — runner often cannot reach EC2 :80; SG may allow only SSH)
+      # HEALTH CHECK (via SSH — same path as browsers: http://<host>/… with no port in the URL)
       # =========================
       - name: Health Check
         uses: appleboy/ssh-action@v1.0.3
@@ -109,10 +109,12 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           command_timeout: 5m
           script: |
-            for i in $(seq 1 12); do
-              if curl --fail -sS --max-time 10 http://127.0.0.1:80/health; then
+            i=0
+            while [ "$i" -lt 12 ]; do
+              if curl --fail -sS --max-time 10 http://127.0.0.1/health; then
                 exit 0
               fi
+              i=$((i + 1))
               sleep 5
             done
             echo "Health check failed after retries"

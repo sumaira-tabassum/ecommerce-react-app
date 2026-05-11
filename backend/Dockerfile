@@ -10,6 +10,8 @@ RUN npm ci --omit=dev
 COPY . .
 
 ENV NODE_ENV=production
+# Match host mapping in deploy workflow (-p 80:3000); app must listen on container port 3000.
+ENV PORT=3000
 EXPOSE 3000
 
 CMD ["npm", "start"]
