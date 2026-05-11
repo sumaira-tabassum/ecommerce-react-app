@@ -87,6 +87,9 @@ jobs:
             sudo docker stop backend-container || true
             sudo docker rm backend-container || true
 
+            # Another container (or a previous deploy under a different name) may still bind host :80.
+            sudo docker ps -q --filter publish=80 | xargs -r sudo docker stop || true
+
             sudo docker pull ${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
 
             sudo docker run -d \
