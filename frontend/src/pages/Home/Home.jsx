@@ -87,7 +87,7 @@ function Home() {
 
             <div className={styles.testimonial}>
                 <h1 className={styles.testimonialQuote}>“Finally, beauty that actually works.”</h1>
-                <p className={styles.testimonialAuthor}>— Riley, SA</p>
+                <p className={styles.testimonialAuthor}>— Shagufta</p>
             </div>
         </div>
     );
