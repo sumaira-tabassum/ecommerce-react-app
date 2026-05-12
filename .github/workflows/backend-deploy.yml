@@ -1,22 +1,32 @@
-name: Backend Deploy
+name: Full Stack Deploy
 
 on:
   push:
     branches:
       - main
+    paths:
+      - 'backend/**'
+      - 'frontend/**'
+      - '.github/workflows/backend-deploy.yml'
+
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  deploy-backend:
     runs-on: ubuntu-latest
-    # Required so GitHub exposes Environment secrets (AWS_*, ECR_*, EC2_*).
+
+    # Required so GitHub exposes Environment secrets
     environment: Production
+
+    permissions:
+      contents: read
 
     steps:
       # =========================
       # CHECKOUT
       # =========================
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # =========================
       # SETUP NODE
@@ -31,7 +41,7 @@ jobs:
       # =========================
       - name: Install dependencies
         working-directory: ./backend
-        run: npm install
+        run: npm ci
 
       # =========================
       # CODE QUALITY CHECK
@@ -42,7 +52,6 @@ jobs:
 
       # =========================
       # CONFIGURE AWS
-      # Requires repo secrets: AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY (IAM user keys with ECR push, etc.)
       # =========================
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v4
@@ -55,7 +64,7 @@ jobs:
       # LOGIN TO ECR
       # =========================
       - name: Login to Amazon ECR
-        uses: aws-actions/amazon-ecr-login@v1
+        uses: aws-actions/amazon-ecr-login@v2
 
       # =========================
       # BUILD IMAGE
@@ -74,9 +83,6 @@ jobs:
 
       # =========================
       # DEPLOY TO EC2
-      # The image excludes .env (see backend/.dockerignore). Runtime config must be injected here.
-      # On the EC2 host, keep a real .env at: $HOME/ecommerce-react-app/backend/.env
-      # (same keys as backend/.env.example). Optional GitHub secret EC2_BACKEND_ENV_FILE overrides the path.
       # =========================
       - name: Deploy to EC2
         uses: appleboy/ssh-action@v1.0.3
@@ -85,21 +91,24 @@ jobs:
           username: ${{ secrets.EC2_USER }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            aws ecr get-login-password --region eu-north-1 | sudo docker login --username AWS --password-stdin 058264432829.dkr.ecr.eu-north-1.amazonaws.com
+            aws ecr get-login-password --region ${{ secrets.AWS_REGION }} | sudo docker login --username AWS --password-stdin 058264432829.dkr.ecr.eu-north-1.amazonaws.com
 
             sudo docker stop backend-container || true
             sudo docker rm backend-container || true
 
-            # Another container (or a previous deploy under a different name) may still bind host :80.
+            # Stop anything else using port 80
             sudo docker ps -q --filter publish=80 | xargs -r sudo docker stop || true
 
             sudo docker pull ${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
 
             ENV_FILE="${{ secrets.EC2_BACKEND_ENV_FILE }}"
-            if [ -z "$ENV_FILE" ]; then ENV_FILE="$HOME/ecommerce-react-app/backend/.env"; fi
+
+            if [ -z "$ENV_FILE" ]; then
+              ENV_FILE="$HOME/ecommerce-react-app/backend/.env"
+            fi
+
             if [ ! -f "$ENV_FILE" ]; then
               echo "Missing env file: $ENV_FILE" >&2
-              echo "Create it on EC2 with JWT_SECRET, MONGO_URI, CLOUD_*, EMAILJS_*, etc. (see backend/.env.example)." >&2
               exit 1
             fi
 
@@ -111,7 +120,7 @@ jobs:
               ${{ secrets.ECR_REPOSITORY }}:${{ github.sha }}
 
       # =========================
-      # HEALTH CHECK (via SSH — same path as browsers: http://<host>/… with no port in the URL)
+      # HEALTH CHECK
       # =========================
       - name: Health Check
         uses: appleboy/ssh-action@v1.0.3
@@ -122,12 +131,76 @@ jobs:
           command_timeout: 5m
           script: |
             i=0
+
             while [ "$i" -lt 12 ]; do
               if curl --fail -sS --max-time 10 http://127.0.0.1/health; then
                 exit 0
               fi
+
               i=$((i + 1))
               sleep 5
             done
+
             echo "Health check failed after retries"
             exit 1
+
+  deploy-frontend:
+    runs-on: ubuntu-latest
+
+    environment: Production
+
+    permissions:
+      contents: read
+
+    env:
+      BUCKET_NAME: ${{ secrets.FRONTEND_S3_BUCKET }}
+
+    steps:
+      # =========================
+      # CHECKOUT
+      # =========================
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # =========================
+      # SETUP NODE
+      # =========================
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      # =========================
+      # INSTALL DEPENDENCIES
+      # =========================
+      - name: Install dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      # =========================
+      # BUILD FRONTEND
+      # =========================
+      - name: Build frontend
+        working-directory: ./frontend
+        run: npm run build
+        env:
+          VITE_BASE_URL: ${{ secrets.VITE_BASE_URL }}
+
+      # =========================
+      # CONFIGURE AWS
+      # =========================
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      # =========================
+      # DEPLOY TO S3
+      # =========================
+      - name: Upload frontend to S3
+        run: |
+          aws s3 sync ./frontend/dist s3://$BUCKET_NAME --delete
