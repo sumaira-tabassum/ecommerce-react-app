@@ -4,7 +4,7 @@ A full-stack e-commerce app with a customer storefront and an admin dashboard fo
 
 The React frontend talks to a **Node.js / Express** REST API backed by MongoDB. The same API is also implemented in **Python (FastAPI)** in [`backend-py/`](backend-py), and the repo includes **Terraform** for provisioning AWS infrastructure.
 
-**Live demo:** _frontend URL_ · **API:** _backend URL_
+**🌐 Live demo:** https://ecommerce-react-app-pink-five.vercel.app · **API:** https://ecommerce-api-three-omega.vercel.app/health
 
 ---
 
