@@ -1,178 +1,145 @@
-# 🛍️ E-Commerce Web Application (MERN Stack)
+# 🛍️ E-Commerce Web Application
 
-A full-stack e-commerce web application built using the MERN stack (MongoDB, Express, React, Node.js).  
-It includes a customer shopping interface and a complete admin dashboard for product and order management.
+A full-stack e-commerce app with a customer storefront and an admin dashboard for managing products, categories and orders.
+
+The React frontend talks to a **Node.js / Express** REST API backed by MongoDB. The same API is also implemented in **Python (FastAPI)** in [`backend-py/`](backend-py), and the repo includes **Terraform** for provisioning AWS infrastructure.
+
+**Live demo:** _frontend URL_ · **API:** _backend URL_
+
+> The API runs on a free hosting tier that sleeps when idle, so the first request after a while can take up to a minute.
 
 ---
 
 ## 🚀 Features
 
-### 👤 Customer Side
-- View products
-- Category filtering
+### 👤 Customer
+- Browse products and filter by category
 - Product details page
-- Add to cart
-- Update cart quantity
-- Checkout system
-- Login / Signup authentication
+- Cart with quantity updates
+- Checkout with billing and shipping details
+- Order confirmation email (EmailJS)
+- Login / signup
 
-### 🛠️ Admin Panel
+### 🛠️ Admin
 - Admin dashboard
-- Add / Edit / Delete products
-- Upload product images (Cloudinary)
-- Manage orders
-- Update order status (pending, processing, delivered, cancelled)
+- Add, edit and delete products
+- Product image upload (Cloudinary)
+- Manage categories
+- View orders and update their status (pending, processing, delivered, cancelled)
 
 ---
 
 ## 🧑‍💻 Tech Stack
 
-### Frontend
-- React.js
-- React Router DOM
-- Axios
-- Material UI (MUI)
-- CSS / CSS Modules
-
-### Backend
-- Node.js
-- Express.js
-- MongoDB + Mongoose
-- JWT Authentication
-- bcrypt.js
-- Multer
-- Cloudinary
-
----
-
-## 🔐 Authentication System
-
-- JWT-based login system
-- Password hashing using bcrypt
-- Role-based access control:
-  - Admin → full access
-  - Customer → shopping only
-- Protected routes using middleware
-
----
-
-## 📦 Core Modules
-
-### Users
-- Signup
-- Login
-- Get logged-in user (`/me`)
-
-### Products
-- Create product (admin only)
-- Update product
-- Delete product
-- Fetch all products
-- Image upload via Cloudinary
-
-### Orders
-- Place order
-- Fetch orders (admin)
-- Update order status
-
-### Cart
-- Frontend cart state
-- Quantity updates
-- Checkout integration
-
----
-
-## 🖼️ Image Upload Flow
-
-1. Admin selects image in form
-2. Image sent to backend using FormData
-3. Multer handles file upload
-4. Cloudinary stores image
-5. URL returned and saved in database
-
----
-
-## 🔑 Environment Variables
-
-Create `.env` file in backend:
-
-```
-MONGO_URI=your_mongodb_uri
-JWT_SECRET=your_secret
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_API_SECRET=your_api_secret
-```
-
----
-
-## ▶️ Run Project
-
-### Backend
-```
-cd backend
-npm install
-npm run dev
-```
-
-### Frontend
-```
-cd frontend
-npm install
-npm run dev
-```
+| Layer | Tech |
+| --- | --- |
+| Frontend | React 19, Vite, React Router, Axios, Material UI, SweetAlert2 |
+| Backend (main) | Node.js, Express 5, MongoDB + Mongoose, JWT, bcrypt, Multer, Cloudinary, EmailJS |
+| Backend (Python) | FastAPI, Motor + Beanie (MongoDB), PyJWT, passlib |
+| Infrastructure | Docker, Terraform (AWS EC2 + S3), Render, Vercel |
 
 ---
 
 ## 📁 Project Structure
 
 ```
-frontend/
-  components/
-  pages/
-  context/
-  layouts/
-
-backend/
-  controllers/
-  models/
-  routes/
-  middleware/
+frontend/      React app (Vite)
+backend/       Node.js / Express API (used by the frontend)
+backend-py/    Python / FastAPI version of the same API
+terraform/     AWS infrastructure (EC2 instance + S3 static site)
+render.yaml    Render blueprint for deploying the Node API
 ```
 
 ---
 
-## 🔒 Protected Routes
+## ▶️ Run Locally
 
-- Admin routes require:
-  - Valid JWT token
-  - Role = admin
+### 1. Backend (Node.js)
+```bash
+cd backend
+cp .env.example .env    # fill in the values
+npm install
+npm start               # http://localhost:5000
+```
 
-Middleware used:
-- authMiddleware
-- adminMiddleware
+### 2. Frontend
+```bash
+cd frontend
+cp .env.example .env    # VITE_BASE_URL=http://localhost:5000
+npm install
+npm run dev
+```
+
+### Optional: Python backend
+```bash
+cd backend-py
+python -m venv venv
+venv\Scripts\activate          # macOS/Linux: source venv/bin/activate
+pip install -r requirements.txt
+cp .env.example .env
+uvicorn main:app --reload --port 5000
+```
+It exposes the same `/api/*` routes, so the frontend can point at it by changing `VITE_BASE_URL`.
 
 ---
 
-## ⚠️ Notes
+## 🔑 Environment Variables
 
-- Cart is frontend-based (not stored in DB)
-- Cloudinary used for image storage
-- Orders are manually updated by admin
-- JWT stored in localStorage
+`backend/.env` (same keys for `backend-py/.env`):
+
+```
+MONGO_URI=            # MongoDB connection string
+PORT=5000
+JWT_SECRET=
+
+CLOUD_NAME=           # Cloudinary
+API_KEY=
+API_SECRET=
+
+EMAILJS_PUBLIC_KEY=   # EmailJS (order confirmation emails)
+EMAILJS_PRIVATE_KEY=
+EMAILJS_SERVICE_ID=
+EMAILJS_TEMPLATE_ID=
+```
+
+`frontend/.env`:
+```
+VITE_BASE_URL=http://localhost:5000
+```
+
+An admin account is created automatically the first time the API starts (see `backend/utils/seedAdmin.js`).
+
+---
+
+## ☁️ Deployment
+
+- **API → Render (free):** in Render choose *New → Blueprint*, select this repo, and fill in the environment variables. [`render.yaml`](render.yaml) builds and runs `backend/`, using `/health` as the health check.
+- **Frontend → Vercel (free):** import the repo, set the root directory to `frontend`, and set `VITE_BASE_URL` to the Render API URL. [`frontend/vercel.json`](frontend/vercel.json) handles client-side routing.
+- **AWS (Terraform):** [`terraform/`](terraform) provisions an EC2 instance for the API and an S3 bucket for the static frontend. The API also ships with a [`Dockerfile`](backend/Dockerfile).
+
+---
+
+## 🔐 Auth and Access Control
+
+- JWT-based login, passwords hashed with bcrypt
+- Roles: **admin** (full access) and **customer** (shopping only)
+- Admin routes are protected by `authMiddleware` + `adminMiddleware`
+
+---
+
+## 🖼️ Image Upload Flow
+
+1. Admin picks an image in the product form
+2. The image is sent to the API as `FormData`
+3. Multer receives the file
+4. It's uploaded to Cloudinary
+5. The returned URL is saved on the product
 
 ---
 
 ## 📌 Future Improvements
 
-- Persistent cart (DB-based)
+- Store the cart in the database
 - Payment gateway integration
-- Email notifications
-- Better analytics dashboard
-- Order tracking system
-
----
-
-## 👨‍💻 Author
-
-Built as a MERN stack learning project focusing on real-world e-commerce architecture.
+- Customer order tracking
+- Richer analytics dashboard

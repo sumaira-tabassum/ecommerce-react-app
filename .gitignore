@@ -1,0 +1,33 @@
+# Dependencies
+node_modules/
+
+# Environment files (use the .env.example files instead)
+.env
+**/.env
+!**/.env.example
+
+# Build output and archives
+dist/
+build/
+*.rar
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+venv/
+.venv/
+
+# Terraform
+.terraform/
+.terraform.lock.hcl
+*.tfstate
+*.tfstate.*
+*.tfvars
+crash.log
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

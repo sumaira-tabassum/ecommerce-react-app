@@ -1,7 +1,6 @@
 import { useOutletContext } from "react-router-dom";
 import { useEffect, useState } from "react";
 import "./Checkout.css";
-import { useLocation } from "react-router-dom";
 import Swal from "sweetalert2";
 import axios from "axios";
 
@@ -24,7 +23,6 @@ const Checkout = () => {
         color: "#6A0610",
         confirmButtonText: "Continue Shopping"
     });
-
 
     const [sameAsBilling, setSameAsBilling] = useState(() => {
         const savedSameAsBilling = localStorage.getItem("checkoutSameAsBilling");
@@ -123,10 +121,12 @@ const Checkout = () => {
                 billingInfo: form,
                 shippingInfo: sameAsBilling ? form : shippingForm,
                 sameAsBilling,
-                orderItems: cart.map((item) => ({
-                    product: item.product._id,
-                    quantity: item.quantity
-                }))
+                orderItems: cart
+                    .filter((item) => item?.product?._id)
+                    .map((item) => ({
+                        product: item.product._id,
+                        quantity: item.quantity
+                    }))
             };
 
             const response = await axios.post(`${import.meta.env.VITE_BASE_URL}/api/orders`, orderData);
@@ -152,7 +152,7 @@ const Checkout = () => {
             });
 
         } catch (error) {
-            console.log(error);
+            console.error(error);
             checkoutAlert.fire({
                 icon: "error",
                 title: "Order Not Placed",
@@ -165,8 +165,7 @@ const Checkout = () => {
                 confirmButtonText: "Try Again"
             });
 
-        }
-        finally {
+        } finally {
             setPlacingOrder(false);
         }
     };
@@ -470,7 +469,6 @@ const Checkout = () => {
                         <h3>Rs {total + shipping}</h3>
                     </div>
                 </div>
-
                 <button
                     onClick={handlePlaceOrder}
                     className="place-order-btn"
