@@ -43,8 +43,12 @@ app.get("/health", (req, res) => {
   });
 });
 
-const PORT = process.env.PORT || 5000;
+// On Vercel the app runs as a serverless function, so it is exported instead of listening.
+if (!process.env.VERCEL) {
+  const PORT = process.env.PORT || 5000;
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+export default app;

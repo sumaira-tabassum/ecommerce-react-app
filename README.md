@@ -6,8 +6,6 @@ The React frontend talks to a **Node.js / Express** REST API backed by MongoDB. 
 
 **Live demo:** _frontend URL_ · **API:** _backend URL_
 
-> The API runs on a free hosting tier that sleeps when idle, so the first request after a while can take up to a minute.
-
 ---
 
 ## 🚀 Features
@@ -36,7 +34,7 @@ The React frontend talks to a **Node.js / Express** REST API backed by MongoDB. 
 | Frontend | React 19, Vite, React Router, Axios, Material UI, SweetAlert2 |
 | Backend (main) | Node.js, Express 5, MongoDB + Mongoose, JWT, bcrypt, Multer, Cloudinary, EmailJS |
 | Backend (Python) | FastAPI, Motor + Beanie (MongoDB), PyJWT, passlib |
-| Infrastructure | Docker, Terraform (AWS EC2 + S3), Render, Vercel |
+| Infrastructure | Vercel, Docker, Terraform (AWS EC2 + S3) |
 
 ---
 
@@ -47,7 +45,6 @@ frontend/      React app (Vite)
 backend/       Node.js / Express API (used by the frontend)
 backend-py/    Python / FastAPI version of the same API
 terraform/     AWS infrastructure (EC2 instance + S3 static site)
-render.yaml    Render blueprint for deploying the Node API
 ```
 
 ---
@@ -113,8 +110,10 @@ An admin account is created automatically the first time the API starts (see `ba
 
 ## ☁️ Deployment
 
-- **API → Render (free):** in Render choose *New → Blueprint*, select this repo, and fill in the environment variables. [`render.yaml`](render.yaml) builds and runs `backend/`, using `/health` as the health check.
-- **Frontend → Vercel (free):** import the repo, set the root directory to `frontend`, and set `VITE_BASE_URL` to the Render API URL. [`frontend/vercel.json`](frontend/vercel.json) handles client-side routing.
+Both apps are deployed on Vercel as two separate projects from this repo:
+
+- **API:** root directory `backend`. [`backend/vercel.json`](backend/vercel.json) runs the Express app as a serverless function. Add the backend environment variables in the Vercel project settings.
+- **Frontend:** root directory `frontend`, with `VITE_BASE_URL` set to the API URL. [`frontend/vercel.json`](frontend/vercel.json) handles client-side routing.
 - **AWS (Terraform):** [`terraform/`](terraform) provisions an EC2 instance for the API and an S3 bucket for the static frontend. The API also ships with a [`Dockerfile`](backend/Dockerfile).
 
 ---
