@@ -21,11 +21,11 @@ export const sendOrderEmail = async ({
 
   const orderItemsHtml = (items || [])
     .map((item) => {
-      const image = item.product?.image || "";
-      const name = item.product?.name || "Product";
+      const image = item.image || item.product?.image || "";
+      const name = item.name || item.product?.name || "Product";
       const description = item.product?.description || "";
       const quantity = item.quantity || 0;
-      const price = item.product?.price || 0;
+      const price = item.price ?? item.product?.price ?? 0;
       const lineTotal = price * quantity;
 
       return `

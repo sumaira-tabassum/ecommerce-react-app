@@ -57,7 +57,9 @@ export const createOrder = async (req, res) => {
         processedItems.push({
             product: product._id,
             quantity: item.quantity,
-            price: product.price
+            name: product.name,
+            price: product.price,
+            image: product.image
         });
     }
     totalPrice += shippingFee;

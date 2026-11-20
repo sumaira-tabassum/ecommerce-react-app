@@ -43,7 +43,11 @@ const orderSchema = new mongoose.Schema({
             quantity: {
                 type: Number,
                 required: true
-            }
+            },
+            // Saved at checkout so the order still shows correctly if the product is later edited or deleted
+            name: { type: String },
+            price: { type: Number },
+            image: { type: String }
         }
     ],
     totalPrice: {

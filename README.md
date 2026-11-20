@@ -66,6 +66,8 @@ The React frontend talks to a **Node.js / Express** REST API backed by **MongoDB
 | <img src="docs/screenshots/shop.jpg" alt="Shop all products" /> | <img src="docs/screenshots/product.jpg" alt="Product details" /> |
 | **Cart** | **Checkout** |
 | <img src="docs/screenshots/cart.jpg" alt="Slide-out cart" /> | <img src="docs/screenshots/checkout.jpg" alt="Checkout" /> |
+| **Admin Dashboard** | **Manage Products** |
+| <img src="docs/screenshots/admin-dashboard.jpg" alt="Admin dashboard" /> | <img src="docs/screenshots/admin-products.jpg" alt="Admin product management" /> |
 
 ---
 

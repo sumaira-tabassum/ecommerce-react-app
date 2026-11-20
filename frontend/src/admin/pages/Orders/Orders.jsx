@@ -105,7 +105,7 @@ const Orders = () => {
                 <TableCell className="orderItems">
                   {order.orderItems.map((item, i) => (
                     <Box key={i} className="orderItemText">
-                      {item.product?.name} × {item.quantity}
+                      {item.product?.name || item.name || "Removed product"} × {item.quantity}
                     </Box>
                   ))}
                 </TableCell>
