@@ -14,7 +14,7 @@ const Navbar = ({ setCartOpen, cart }) => {
   return (
     <nav className="Navbar">
       <Link to="/" className="logo" onClick={() => setMenuOpen(false)}>
-        <p>sheglam.</p>
+        <p>noelune.</p>
       </Link>
 
       <div className="menu-btn" onClick={() => setMenuOpen(!menuOpen)}>

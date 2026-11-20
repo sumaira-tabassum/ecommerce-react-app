@@ -49,7 +49,7 @@ const Sidebar = ({
     <Box className={styles.sidebarContent}>
       <Box className={styles.logoWrap}>
         <ShinyText
-                        text="sheglam."
+                        text="noelune."
                         speed={2}
                         delay={0}
                         color="#6A0610"

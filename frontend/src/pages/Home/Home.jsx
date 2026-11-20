@@ -61,7 +61,7 @@ function Home() {
                     <Link to="/shop">
                         <button className={styles.heroButton}>Shop Now</button>
                     </Link>
-                    <p className={styles.heroTitle}>sheglam.</p>
+                    <p className={styles.heroTitle}>noelune.</p>
                 </div>
             </div>
 
@@ -86,8 +86,8 @@ function Home() {
             </div>
 
             <div className={styles.testimonial}>
-                <h1 className={styles.testimonialQuote}>“Finally, beauty that actually works.”</h1>
-                <p className={styles.testimonialAuthor}>— Shagufta</p>
+                <h1 className={styles.testimonialQuote}>“I stopped hiding behind heavy makeup. noelune. gave me a glow that feels like my own skin, only softer, brighter and more confident.”</h1>
+                <p className={styles.testimonialAuthor}>— Zara</p>
             </div>
         </div>
     );

@@ -101,7 +101,10 @@
 
 .testimonialQuote {
   -webkit-text-stroke: 1px #f4bfbf;
-  margin: 0;
+  margin: 0 auto;
+  max-width: 1000px;
+  font-size: clamp(24px, 3.2vw, 40px);
+  line-height: 1.35;
 }
 
 .testimonialAuthor {

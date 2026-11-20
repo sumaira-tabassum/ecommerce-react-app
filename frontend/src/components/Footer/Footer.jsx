@@ -22,9 +22,9 @@ const Footer = () => {
                 <FaTiktok />
             </div>
 
-            <h1 className="footer-logo">sheglam.</h1>
+            <h1 className="footer-logo">noelune.</h1>
             <p className="footer-text">
-                © 2026 Sheglam. All rights reserved.
+                © 2026 Noelune. All rights reserved.
             </p>
 
         </footer>
