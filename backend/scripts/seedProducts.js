@@ -14,20 +14,20 @@ const unsplash = (id) => `https://images.unsplash.com/photo-${id}?w=1000&h=1000&
 
 const products = [
   // Lips
-  { sku: "NL-LIP-001", category: "Lips", name: "Overnight Lip Mask", price: 1050, quantity: 50, photo: "1599305090598-fe179d501227",
-    description: "A nourishing overnight balm with shea butter and berry extract. Wake up to soft, smooth and plump-looking lips." },
-  { sku: "NL-LIP-002", category: "Lips", name: "Desert Rose Lipstick Set", price: 2950, quantity: 20, photo: "1773372238349-41899694df31",
-    description: "Three dusty-rose shades with a creamy, comfortable finish. Wear them alone or layer for your perfect pink." },
-  { sku: "NL-LIP-003", category: "Lips", name: "Nude to Red Lip Quartet", price: 3400, quantity: 18, photo: "1631214499500-2e34edcaccfe",
-    description: "Four rich shades from soft caramel nude to classic red. Velvety colour that glides on in one swipe." },
-  { sku: "NL-LIP-004", category: "Lips", name: "Cherry Matte Lipstick", price: 1250, quantity: 32, photo: "1613925958326-12f97a484fb5",
-    description: "A deep cherry red with a smooth, long-wearing matte finish. Bold colour that won't feather or fade." },
-  { sku: "NL-LIP-005", category: "Lips", name: "Pearl Glow Lip Balm", price: 850, quantity: 55, photo: "1663177213219-1aa295572917",
-    description: "A silky balm stick with a soft pearl glow. Hydrates, smooths and preps lips for colour." },
-  { sku: "NL-LIP-006", category: "Lips", name: "Sunset Lip & Cheek Trio", price: 2200, quantity: 22, photo: "1716287384717-972e03bf4179",
-    description: "A red lip colour, peach cream blush and champagne glow in one set. Mix and match for a fresh, flushed look." },
-  { sku: "NL-LIP-007", category: "Lips", name: "Velvet Nude Liquid Lipstick", price: 1350, quantity: 36, photo: "1601548667635-a5c7f92a897a",
+  { sku: "NL-LIP-001", category: "Lips", name: "Velvet Nude Liquid Lipstick", price: 1350, quantity: 36, photo: "1601548667635-a5c7f92a897a",
     description: "A rosy-nude liquid lipstick that dries to a soft velvet matte. Lightweight, transfer-resistant and comfortable all day." },
+  { sku: "NL-LIP-002", category: "Lips", name: "Overnight Lip Mask", price: 1050, quantity: 50, photo: "1599305090598-fe179d501227",
+    description: "A nourishing overnight balm with shea butter and berry extract. Wake up to soft, smooth and plump-looking lips." },
+  { sku: "NL-LIP-003", category: "Lips", name: "Desert Rose Lipstick Set", price: 2950, quantity: 20, photo: "1773372238349-41899694df31",
+    description: "Three dusty-rose shades with a creamy, comfortable finish. Wear them alone or layer for your perfect pink." },
+  { sku: "NL-LIP-004", category: "Lips", name: "Nude to Red Lip Quartet", price: 3400, quantity: 18, photo: "1631214499500-2e34edcaccfe",
+    description: "Four rich shades from soft caramel nude to classic red. Velvety colour that glides on in one swipe." },
+  { sku: "NL-LIP-005", category: "Lips", name: "Cherry Matte Lipstick", price: 1250, quantity: 32, photo: "1613925958326-12f97a484fb5",
+    description: "A deep cherry red with a smooth, long-wearing matte finish. Bold colour that won't feather or fade." },
+  { sku: "NL-LIP-006", category: "Lips", name: "Pearl Glow Lip Balm", price: 850, quantity: 55, photo: "1663177213219-1aa295572917",
+    description: "A silky balm stick with a soft pearl glow. Hydrates, smooths and preps lips for colour." },
+  { sku: "NL-LIP-007", category: "Lips", name: "Sunset Lip & Cheek Trio", price: 2200, quantity: 22, photo: "1716287384717-972e03bf4179",
+    description: "A red lip colour, peach cream blush and champagne glow in one set. Mix and match for a fresh, flushed look." },
 
   // Face
   { sku: "NL-FACE-001", category: "Face", name: "Skin Tint Foundation", price: 2450, quantity: 34, photo: "1711563386439-75ce269ac998",

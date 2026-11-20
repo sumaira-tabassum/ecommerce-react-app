@@ -16,6 +16,10 @@ import {
 } from "@mui/material";
 import "./Orders.css";
 
+const authHeaders = () => ({
+  headers: { Authorization: `Bearer ${localStorage.getItem("token")}` }
+});
+
 const getStatusStyles = (status) => {
   const styles = {
     pending: { color: "#9a5b00" },
@@ -39,7 +43,8 @@ const Orders = () => {
 
       await axios.put(
         `${import.meta.env.VITE_BASE_URL}/api/orders/${id}`,
-        { status }
+        { status },
+        authHeaders()
       );
 
       setOrders((prev) =>
@@ -56,7 +61,8 @@ const Orders = () => {
     const fetchOrders = async () => {
       try {
         const res = await axios.get(
-          `${import.meta.env.VITE_BASE_URL}/api/orders`
+          `${import.meta.env.VITE_BASE_URL}/api/orders`,
+          authHeaders()
         );
         setOrders(Array.isArray(res.data) ? res.data : []);
       } catch (error) {

@@ -36,6 +36,9 @@ app.use("/api/orders", orderRoutes);
 import userRoutes from "./routes/userRoutes.js";
 app.use("/api/auth", userRoutes);
 
+import statsRoutes from "./routes/statsRoutes.js";
+app.use("/api/stats", statsRoutes);
+
 app.get("/health", (req, res) => {
   res.status(200).json({
     status: "OK",

@@ -237,10 +237,33 @@
   padding-bottom: 6px;
 }
 
-.barChart div {
-  background: linear-gradient(180deg, #6A0610, #311D1F);
+.barCol {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+.barFill {
   border-radius: 10px;
-  width: 46px; 
+  width: 46px;
+}
+
+.barLabel {
+  font-size: 12px;
+  color: #311D1F;
+  opacity: 0.6;
+}
+
+.badge {
+  background: #fdf1f0;
+  color: #6A0610;
+  padding: 3px 8px;
+  font-size: 12px;
+  border-radius: 8px;
+  font-weight: 500;
 }
 .barItem {
   margin-bottom: 12px;
@@ -285,7 +308,8 @@
   top: 10px;
   left: 12px;
 
-  color: #6A0610;
+  color: #fff;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.35);
 }
 
 .imageOverlay h4 {
@@ -338,7 +362,7 @@
     margin-top: 60px;
   }
 
-  .barChart div {
+  .barFill {
     width: 38px;
   }
 }
@@ -381,7 +405,7 @@
     gap: 8px;
   }
 
-  .barChart div {
+  .barFill {
     width: 32px;
   }
 
@@ -418,7 +442,7 @@
     margin-top: 40px;
   }
 
-  .barChart div {
+  .barFill {
     width: 26px;
   }
 
