@@ -31,3 +31,6 @@ crash.log
 Thumbs.db
 .vscode/
 .idea/
+
+# Files kept only on this computer, never pushed to GitHub (e.g. LinkedIn thumbnails)
+local-only/
